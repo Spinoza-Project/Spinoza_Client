@@ -23,6 +23,7 @@ const PlantFeed: NextPage = () => {
       }
     })();
   }, [plantId]);
+
   if (status === 'unauthenticated') {
     router.replace('/signin');
     return <div>로그인하세요.</div>;

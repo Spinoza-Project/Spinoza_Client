@@ -8,7 +8,7 @@ export default function NavBar() {
     return <></>;
   }
   return (
-    <nav className='fixed bottom-0 w-full h-20 border-t-[1px] border-t-gray-400 box-border shadow'>
+    <nav className='fixed bottom-0 w-full h-20 border-t-[1px] border-t-gray-400 box-border bg-white'>
       <ul className='flex h-full'>
         <li className='flex-1 flex justify-center items-center'>
           <Link href='/recomand'>

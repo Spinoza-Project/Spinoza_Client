@@ -70,7 +70,7 @@ const MainPage: NextPage = () => {
         </MyPlantList>
         <Link href='/recomand'>
           <a className='px-8 py-2 border-[1px] border-gray-400 rounded-xl'>
-            내 나무 만들기
+            🌳 내 나무 만들기
           </a>
         </Link>
         <p>내 손안의 작은 과수원, Planti에 오신 것을 환영합니다</p>

@@ -52,7 +52,7 @@ const Recomand: NextPage = () => {
                     <div className='relative w-[100px] h-[100px]'>
                       <Image
                         src={plant.plantImageUrl}
-                        alt={'plant'}
+                        alt='plant'
                         layout='fill'
                         objectFit='cover'
                       />
@@ -73,7 +73,6 @@ const Recomand: NextPage = () => {
 const PlantList = styled.ul`
   display: flex;
   gap: 16px;
-  display: flex;
   align-items: stretch;
   width: 100%;
   height: 100%;

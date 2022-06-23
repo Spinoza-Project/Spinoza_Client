@@ -49,7 +49,7 @@ const RecomandByPlant: NextPage = () => {
             </div>
           </fieldset>
         </form>
-        <div className='overflow-hidden border-gray-500'>
+        <div className='overflow-hidden'>
           <MapWithNoSSR />
         </div>
       </Layout>
