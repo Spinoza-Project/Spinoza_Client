@@ -76,7 +76,7 @@ const FormDetail: NextPage = () => {
             {farmDetail?.introduction}
           </p>
         </div>
-        <Link href='/home'>
+        <Link href='/payment'>
           <a className='flex justify-center items-center px-8 py-2 border-[1px] border-gray-400 rounded-xl'>
             🌳 나무 자리 고르기
           </a>

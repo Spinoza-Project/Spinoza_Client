@@ -5,24 +5,30 @@ import { useRouter } from 'next/router';
 import * as geojson from 'geojson';
 import { LatLngExpression, Layer } from 'leaflet';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-import { getGeoJSONData, getProduct } from '../utils';
+import { getGeoJSONData, getProduct, getSugar } from '../utils';
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
 
 type FeatureType = geojson.Feature<geojson.GeometryObject, any>;
-
+interface PropsType {
+  recomandType: 'planti' | 'produce';
+}
 const DEFAULT_CENTER = [36.4919, 128.8889] as LatLngExpression;
 
-const PRODUCT_COLORS = ['#F1F6BA', '#E7BE75', '#D66F52', '#B85455'];
+const ROCOMAND_COLORS = ['#F1F6BA', '#E7BE75', '#D66F52', '#B85455'];
 const EMPTY_COLOR = '#0ea5e9';
 
-const LeafletMap = () => {
+const LeafletMap: React.FC<PropsType> = ({ recomandType }) => {
   const [getJSON, setGeoJSON] = useState(null);
   const [product, setProduct] = useState<{
     [key: string]: { [key: string]: number };
   }>();
+  const [sugar, setSugar] = useState<{
+    [key: string]: number;
+  }>();
+
   const router = useRouter();
   const { query } = router;
 
@@ -42,6 +48,17 @@ const LeafletMap = () => {
       try {
         const data = await getProduct();
         setProduct(data);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getSugar();
+        setSugar(data);
       } catch (e) {
         console.error(e);
       }
@@ -70,7 +87,7 @@ const LeafletMap = () => {
   };
 
   const setStyle = (feature?: FeatureType) => {
-    if (!product || !feature) {
+    if (!sugar || !product || !feature) {
       return {
         weigth: 1,
       };
@@ -78,15 +95,28 @@ const LeafletMap = () => {
     const {
       properties: { SGG_NM },
     } = feature;
-    return {
-      fillColor: product.hasOwnProperty(SGG_NM)
-        ? PRODUCT_COLORS[product[SGG_NM][query.name as string] - 1]
-        : EMPTY_COLOR,
-      fillOpacity: 0.8,
-      color: '#000000',
-      weigth: 1,
-      opacity: 0.5,
-    };
+
+    if (recomandType === 'planti') {
+      return {
+        fillColor: sugar.hasOwnProperty(SGG_NM)
+          ? ROCOMAND_COLORS[sugar[SGG_NM] - 1]
+          : EMPTY_COLOR,
+        fillOpacity: 0.8,
+        color: '#000000',
+        weigth: 1,
+        opacity: 0.5,
+      };
+    } else if (recomandType === 'produce') {
+      return {
+        fillColor: product.hasOwnProperty(SGG_NM)
+          ? ROCOMAND_COLORS[product[SGG_NM][query.name as string] - 1]
+          : EMPTY_COLOR,
+        fillOpacity: 0.8,
+        color: '#000000',
+        weigth: 1,
+        opacity: 0.5,
+      };
+    }
   };
 
   return (

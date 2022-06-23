@@ -5,3 +5,7 @@ export const getGeoJSONData = async () => {
 export const getProduct = async () => {
   return await (await fetch('/product.json')).json();
 };
+
+export const getSugar = async () => {
+  return await (await fetch('/sugar.json')).json();
+};

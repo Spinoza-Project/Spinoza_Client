@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ChangeEvent, useState } from 'react';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
@@ -12,8 +12,15 @@ const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
 });
 
 const RecomandByPlant: NextPage = () => {
+  const [recomandType, setRecomandType] = useState<'planti' | 'produce'>(
+    'planti'
+  );
   const router = useRouter();
   const { status } = useSession();
+
+  const onChangeRadio = (e) => {
+    setRecomandType(e.target.value);
+  };
 
   if (status === 'unauthenticated') {
     router.replace('/signin');
@@ -33,9 +40,9 @@ const RecomandByPlant: NextPage = () => {
                 type='radio'
                 id='planti-recomand'
                 name='planti-recomand'
-                value='planti-recomand'
-                onChange={() => console.log('planti')}
-                checked
+                value='planti'
+                onChange={onChangeRadio}
+                checked={recomandType === 'planti'}
               />
             </div>
             <div className='flex-1'>
@@ -44,13 +51,15 @@ const RecomandByPlant: NextPage = () => {
                 type='radio'
                 id='produce-recomand'
                 name='produce-recomand'
-                value='produce-recomand'
+                value='produce'
+                onChange={onChangeRadio}
+                checked={recomandType === 'produce'}
               />
             </div>
           </fieldset>
         </form>
         <div className='overflow-hidden'>
-          <MapWithNoSSR />
+          <MapWithNoSSR recomandType={recomandType} />
         </div>
       </Layout>
     </>
