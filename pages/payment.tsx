@@ -1,42 +1,41 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Layout from '../components/layout';
 import ReceiveRadio from '../components/ReceiveRadio';
+
+type ReceiveType = 'parcel' | 'direct' | 'pickup';
+type PaymentType = 'simple' | 'card' | 'noBankbook';
 
 const Payment: NextPage = () => {
   const [weight, setWeight] = useState('');
   const [donateWeight, setDonateWeight] = useState('');
-  const [receive, setReceive] = useState<'parcel' | 'direct' | 'pickup'>(
-    'parcel'
-  );
-  const [payment, setPayment] = useState<'simple' | 'card' | 'noBankbook'>(
-    'simple'
-  );
+  const [receive, setReceive] = useState<ReceiveType>('parcel');
+  const [payment, setPayment] = useState<PaymentType>('simple');
   const [isDonated, setIsDonated] = useState(true);
 
-  const onClickIsDonate = (e) => {
+  const onClickIsDonate = (e: ChangeEvent<HTMLInputElement>) => {
     setIsDonated(!isDonated);
   };
-  const onChangeWeight = (e) => {
+  const onChangeWeight = (e: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = e;
     setWeight(value);
   };
-  const onChangeDonation = (e) => {
+  const onChangeDonation = (e: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = e;
 
     setDonateWeight(value);
   };
-  const onChangeReceive = (e) => {
-    setReceive(e.target.value);
+  const onChangeReceive = (e: ChangeEvent<HTMLInputElement>) => {
+    setReceive(e.target.value as ReceiveType);
   };
-  const onChangePayment = (e) => {
-    setPayment(e.target.value);
+  const onChangePayment = (e: ChangeEvent<HTMLInputElement>) => {
+    setPayment(e.target.value as PaymentType);
   };
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
 

@@ -6,20 +6,19 @@ import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
 import dynamic from 'next/dynamic';
 
+type RecomandType = 'planti' | 'produce';
 const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
   loading: () => <p>Map is loading</p>,
   ssr: false,
 });
 
 const RecomandByPlant: NextPage = () => {
-  const [recomandType, setRecomandType] = useState<'planti' | 'produce'>(
-    'planti'
-  );
+  const [recomandType, setRecomandType] = useState<RecomandType>('planti');
   const router = useRouter();
   const { status } = useSession();
 
-  const onChangeRadio = (e) => {
-    setRecomandType(e.target.value);
+  const onChangeRadio = (e: ChangeEvent<HTMLInputElement>) => {
+    setRecomandType(e.target.value as RecomandType);
   };
 
   if (status === 'unauthenticated') {
