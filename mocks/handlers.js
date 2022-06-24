@@ -50,6 +50,12 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
+        plantName: '이쁜이',
+        farmName: '회룡포주말농장',
+        farmAddress: '경상북도 예천군 용궁면 대은리 449',
+        weather: '맑음',
+        temperature: 24,
+        humidity: 10,
         feeds: [
           {
             feedId: '62a739cb57e6ac739cb8dca9',
