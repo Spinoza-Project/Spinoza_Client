@@ -15,3 +15,11 @@ export const getFarms = async (fruit: string, address: string) => {
 export const getFarmDetail = async (farmId: string) => {
   return await axios.get(`/api/farm/${farmId}`);
 };
+
+export const getReservations = async (farmId: string) => {
+  return await axios.get(`/api/farm/${farmId}/reservation`);
+};
+
+export const postReservation = async (farmId: string) => {
+  return await axios.post('/api/plant', { farmId });
+};

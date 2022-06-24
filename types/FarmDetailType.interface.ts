@@ -12,5 +12,5 @@ export interface FruitType {
   _id: string;
   name: string;
   information: string;
-  color: string;
+  image: string;
 }

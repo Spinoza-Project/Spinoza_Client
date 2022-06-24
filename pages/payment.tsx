@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { config } from 'process';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Layout from '../components/layout';
 import ReceiveRadio from '../components/ReceiveRadio';
@@ -37,11 +38,12 @@ const Payment: NextPage = () => {
   };
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(e);
   };
 
   return (
     <Layout>
-      <div className='flex flex-col w-full gap-3'>
+      <div className='flex flex-col w-full gap-3 py-4'>
         <div className='flex flex-col w-full'>
           <h3 className='font-bold text-lg'>
             열매 관리
@@ -50,23 +52,25 @@ const Payment: NextPage = () => {
               수확 후 챙겨갈 열매량을 입력하세요.
             </span>
           </h3>
-          <div className='w-[90%] flex justify-between text-white bg-primary p-4 rounded-2xl'>
-            <div className='w-24'>
-              {'['}
-              <input
-                type='text'
-                name='weight'
-                value={weight}
-                onChange={onChangeWeight}
-                className='w-10 rounded-xl text-black'
-              />
-              {'] kg'}
+          <div className='flex flex-col items-center'>
+            <div className='w-[90%] flex justify-between text-white bg-primary p-4 rounded-2xl'>
+              <div className='w-24'>
+                {'['}
+                <input
+                  type='text'
+                  name='weight'
+                  value={weight}
+                  onChange={onChangeWeight}
+                  className='w-10 rounded-xl text-black'
+                />
+                {'] kg'}
+              </div>
+              <span className='flex-1'>{Number(weight) * 5000} 원</span>
             </div>
-            <span className='flex-1'>{Number(weight) * 5000} 원</span>
+            <span className='font-normal text-sm'>
+              최대 40kg까지 입력 가능합니다.
+            </span>
           </div>
-          <span className='font-normal text-sm'>
-            최대 40kg까지 입력 가능합니다.
-          </span>
         </div>
 
         <div>
@@ -95,22 +99,24 @@ const Payment: NextPage = () => {
           </button>
         </div>
 
-        {isDonated && (
-          <div className='flex justify-between text-white bg-primary p-4 rounded-2xl'>
-            <div className='w-24'>
-              {'['}
-              <input
-                type='text'
-                name='donateWeight'
-                value={donateWeight}
-                onChange={onChangeDonation}
-                className='w-10 rounded-xl text-black'
-              />
-              {'] kg'}
+        <div className='flex justify-center'>
+          {isDonated && (
+            <div className='flex justify-between w-[90%] text-white bg-primary p-4 rounded-2xl'>
+              <div className='w-24'>
+                {'['}
+                <input
+                  type='text'
+                  name='donateWeight'
+                  value={donateWeight}
+                  onChange={onChangeDonation}
+                  className='w-10 rounded-xl text-black'
+                />
+                {'] kg'}
+              </div>
+              <span className='flex-1'>A 센터에 기부하기</span>
             </div>
-            <span className='flex-1'>A 센터에 기부하기</span>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className='flex flex-col items-center'>
           <h3 className='font-bold text-lg p-2 border-black border-[1px] rounded-xl'>
@@ -233,7 +239,7 @@ const Payment: NextPage = () => {
               type='submit'
               className='bg-primary w-[200px] h-[40px] rounded-xl text-white'
             >
-              최종선택 완료
+              결제하기
             </button>
           </form>
         </div>

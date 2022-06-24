@@ -29,7 +29,6 @@ const PlantFeed: NextPage = () => {
     router.replace('/signin');
     return <div>로그인하세요.</div>;
   }
-  console.log(myPlantFeed);
 
   return (
     <Layout>

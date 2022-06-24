@@ -60,10 +60,15 @@ const FormDetail: NextPage = () => {
             {farmDetail?.fruitTypes.map((fruitType, index) => {
               return (
                 <li key={index} className='flex gap-2 items-center'>
-                  <FruitType
-                    fruitTypeColor={fruitType.color}
-                    className='w-6 h-6 rounded-full'
-                  ></FruitType>
+                  <div className='relative w-4 h-4'>
+                    <Image
+                      src={fruitType.image}
+                      alt='fruitType'
+                      layout='fill'
+                      objectFit='cover'
+                      className='rounded-xl'
+                    />
+                  </div>
                   <span>{fruitType.name}</span>
                 </li>
               );
@@ -76,7 +81,7 @@ const FormDetail: NextPage = () => {
             {farmDetail?.introduction}
           </p>
         </div>
-        <Link href='/payment'>
+        <Link href={`/reservation/${query.farmId}`}>
           <a className='flex justify-center items-center px-8 py-2 border-[1px] border-gray-400 rounded-xl'>
             🌳 나무 자리 고르기
           </a>
