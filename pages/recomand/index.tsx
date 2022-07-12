@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../../components/layout';
+import LogoHeader from '../../components/LogoHeader';
 
 const plantList = [
   {
@@ -27,7 +28,7 @@ const plantList = [
 
 const Recomand: NextPage = () => {
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div className='flex min-h-full w-auto flex-col items-start'>
         <div className='py-12'>
           <h1 className='py-2 text-xl'>과일 고르기</h1>

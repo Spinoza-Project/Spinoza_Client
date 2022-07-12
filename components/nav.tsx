@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function NavBar() {
+const Nav = () => {
   return (
     <nav className='sticky bottom-0 z-[99] box-border h-20 w-full border-t-[1px] border-t-gray-400 bg-white'>
       <ul className='flex h-full'>
@@ -22,4 +22,6 @@ export default function NavBar() {
       </ul>
     </nav>
   );
-}
+};
+
+export default Nav;

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/layout';
+import LogoHeader from '../../components/LogoHeader';
 import { FarmInfoType } from '../../types/FarmInfoType.interface';
 import { getFarms } from '../api';
 
@@ -29,7 +30,7 @@ const Farms: NextPage = () => {
     })();
   }, [query]);
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div>
         {farms.length === 0 ? (
           <p>해당 지역에 농가가 없습니다.</p>

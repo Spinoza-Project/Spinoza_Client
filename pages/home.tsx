@@ -8,6 +8,7 @@ import Layout from '../components/layout';
 import Link from 'next/link';
 import styled from '@emotion/styled';
 import axios from 'axios';
+import LogoHeader from '../components/LogoHeader';
 
 const MainPage: NextPage = () => {
   const initialConfig = {
@@ -71,7 +72,7 @@ const MainPage: NextPage = () => {
   }, [config]);
 
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-auto flex-col items-center gap-4'>
         <div className='relative w-[400px]'>
           <Image

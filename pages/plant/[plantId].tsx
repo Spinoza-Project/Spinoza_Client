@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/layout';
+import LogoHeader from '../../components/LogoHeader';
 import { MyPlantFeedType } from '../../types/FeedType.interface';
 import { getPlantFeed } from '../api';
 
@@ -24,7 +25,7 @@ const PlantFeed: NextPage = () => {
   }, [plantId]);
 
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col gap-5 py-3'>
         {!myPlantFeed ? (
           <p>로딩 중 입니다.</p>

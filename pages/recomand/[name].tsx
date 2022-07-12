@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
 import dynamic from 'next/dynamic';
 import { getGeoJSONDataBySGG, getGeoJSONDataByUMD } from '../../lib/utils';
+import LogoHeader from '../../components/LogoHeader';
 
 type RecomandType = 'planti' | 'produce';
 const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
@@ -49,7 +50,7 @@ const RecomandByPlant: NextPage = () => {
       <Head>
         <title>어떤 농가를 추천받을까?</title>
       </Head>
-      <Layout>
+      <Layout leftChild={<LogoHeader />}>
         <form>
           <fieldset className='flex'>
             <div className='flex-1'>

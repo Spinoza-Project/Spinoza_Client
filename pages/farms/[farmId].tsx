@@ -7,6 +7,7 @@ import { FarmDetailType } from '../../types/FarmDetailType.interface';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import LogoHeader from '../../components/LogoHeader';
 
 const FormDetail: NextPage = () => {
   const [farmDetail, setFarmDetail] = useState<FarmDetailType>();
@@ -25,7 +26,7 @@ const FormDetail: NextPage = () => {
   }, [query]);
 
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col gap-6 pt-4'>
         <div className='flex flex-col items-center'>
           <FarmImages className='scroll-none flex w-full snap-x snap-mandatory gap-3 overflow-x-auto p-4'>

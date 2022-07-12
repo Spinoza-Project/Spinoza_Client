@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../components/layout';
+import LogoHeader from '../components/LogoHeader';
 import { PlantType } from '../types/PlantType.interface';
 import { getPlants } from './api';
 
@@ -25,7 +26,7 @@ const MyPage: NextPage = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <ul>
         {plants.length === 0 ? (
           <>

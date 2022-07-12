@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Layout from '../components/layout';
+import LogoHeader from '../components/LogoHeader';
 import ReceiveRadio from '../components/ReceiveRadio';
 // import { postKakaoPay } from './api/kakaoPay';
 
@@ -100,7 +101,7 @@ const Payment: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div className='flex w-full flex-col gap-3 py-4'>
         <div className='flex w-full flex-col'>
           <h3 className='text-lg font-bold'>

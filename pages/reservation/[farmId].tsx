@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/layout';
+import LogoHeader from '../../components/LogoHeader';
 import { ReservationType } from '../../types/ReservationType.interface';
 import { getReservations } from '../api';
 
@@ -36,7 +37,7 @@ const Reservation: NextPage = () => {
     return <div>예약정보를 불러오지 못했습니다.</div>;
   }
   return (
-    <Layout>
+    <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col items-center gap-3 py-3'>
         <p>경상북도 영주시 풍기읍 전구리 232-1</p>
         <ul className='grid min-h-[472px] min-w-[360px] grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] rounded-3xl bg-[#6D3300] p-3'>
