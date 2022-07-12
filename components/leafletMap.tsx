@@ -3,11 +3,11 @@ import { LatLngExpression } from 'leaflet';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { getProduct, getSugar } from '../lib/utils';
 import MapByUMD from './MapByUMD';
+import MapBySGG from './MapBySGG';
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
-import MapBySGG from './MapBySGG';
 
 interface PropsType {
   recomandType: 'planti' | 'produce';

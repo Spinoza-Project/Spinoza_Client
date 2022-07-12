@@ -10,9 +10,9 @@ import Link from 'next/link';
 
 const FormDetail: NextPage = () => {
   const [farmDetail, setFarmDetail] = useState<FarmDetailType>();
-
   const router = useRouter();
   const { query } = router;
+
   useEffect(() => {
     (async () => {
       try {

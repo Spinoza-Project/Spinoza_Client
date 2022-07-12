@@ -1,6 +1,5 @@
 import * as dayjs from 'dayjs';
 import { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -12,7 +11,6 @@ const PlantFeed: NextPage = () => {
   const [myPlantFeed, setMyPlantFeed] = useState<MyPlantFeedType>();
   const router = useRouter();
   const { plantId } = router.query;
-  // const { status } = useSession();
 
   useEffect(() => {
     (async () => {
@@ -24,10 +22,6 @@ const PlantFeed: NextPage = () => {
       }
     })();
   }, [plantId]);
-  // if (status === 'unauthenticated') {
-  //   router.replace('/signin');
-  //   return <div>로그인하세요.</div>;
-  // }
 
   return (
     <Layout>

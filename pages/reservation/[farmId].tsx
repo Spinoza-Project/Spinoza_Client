@@ -8,7 +8,9 @@ import { ReservationType } from '../../types/ReservationType.interface';
 import { getReservations } from '../api';
 
 const Reservation: NextPage = () => {
-  const [selected, setSelected] = useState<number | undefined>();
+  const [selectedSeatIndex, setSelectedSeatIndex] = useState<
+    number | undefined
+  >();
   const [reservations, setReservations] = useState<ReservationType[]>([]);
   const router = useRouter();
   const { query } = router;
@@ -26,8 +28,8 @@ const Reservation: NextPage = () => {
       }
     })();
   }, [query]);
-  const onSelect = (index: number) => {
-    setSelected(index);
+  const onSelectSeat = (index: number) => {
+    setSelectedSeatIndex(index);
   };
 
   if (reservations.length === 0) {
@@ -42,9 +44,9 @@ const Reservation: NextPage = () => {
             return (
               <li
                 key={index}
-                onClick={() => onSelect(index)}
+                onClick={() => onSelectSeat(index)}
                 className={`relative flex flex-col items-center justify-center m-1 bg-gray-200 rounded-3xl ${
-                  selected === index ? 'border-4 border-red-500' : ''
+                  selectedSeatIndex === index ? 'border-4 border-red-500' : ''
                 }`}
               >
                 <div className='relative w-4 h-4'>

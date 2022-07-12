@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
@@ -18,7 +17,6 @@ const RecomandByPlant: NextPage = () => {
   const [geoJsonByUMD, setGoeJsonByUMD] = useState(null);
   const [recomandType, setRecomandType] = useState<RecomandType>('planti');
   const router = useRouter();
-  // const { status } = useSession();
 
   useEffect(() => {
     // 시/군 GeoJSON 불러오기
@@ -46,10 +44,6 @@ const RecomandByPlant: NextPage = () => {
     setRecomandType(e.target.value as RecomandType);
   };
 
-  // if (status === 'unauthenticated') {
-  //   router.replace('/signin');
-  //   return <div>로그인하세요.</div>;
-  // }
   return (
     <>
       <Head>

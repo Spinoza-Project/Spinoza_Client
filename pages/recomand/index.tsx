@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 import { NextPage } from 'next';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
 
 const plantList = [
@@ -28,14 +26,6 @@ const plantList = [
 ];
 
 const Recomand: NextPage = () => {
-  const router = useRouter();
-  // const { status } = useSession();
-
-  // if (status === 'unauthenticated') {
-  //   router.replace('/signin');
-  //   return <div>로그인하세요.</div>;
-  // }
-
   return (
     <Layout>
       <div className='flex flex-col items-start w-auto min-h-full'>

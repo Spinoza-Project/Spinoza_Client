@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getPlants, postReservation } from './api';
-import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { PlantType } from '../types/PlantType.interface';
 import Layout from '../components/layout';
@@ -23,7 +22,6 @@ const MainPage: NextPage = () => {
   const [config, setConfig] = useState(initialConfig);
   const [plants, setPlants] = useState<PlantType[]>([]);
   const router = useRouter();
-  // const { status } = useSession();
 
   useEffect(() => {
     (async () => {
@@ -71,13 +69,6 @@ const MainPage: NextPage = () => {
       })();
     });
   }, [config]);
-  // console.log(router);
-  // console.log(config);
-
-  // if (status === 'unauthenticated') {
-  //   router.replace('/signin');
-  //   return <div>로그인하세요.</div>;
-  // }
   return (
     <Layout>
       <div className='flex flex-col items-center w-auto h-full gap-4'>
