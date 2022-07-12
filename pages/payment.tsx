@@ -101,17 +101,17 @@ const Payment: NextPage = () => {
 
   return (
     <Layout>
-      <div className='flex flex-col w-full gap-3 py-4'>
-        <div className='flex flex-col w-full'>
-          <h3 className='font-bold text-lg'>
+      <div className='flex w-full flex-col gap-3 py-4'>
+        <div className='flex w-full flex-col'>
+          <h3 className='text-lg font-bold'>
             열매 관리
             <br />
-            <span className='font-normal text-sm'>
+            <span className='text-sm font-normal'>
               수확 후 챙겨갈 열매량을 입력하세요.
             </span>
           </h3>
           <div className='flex flex-col items-center'>
-            <div className='w-[90%] flex justify-between text-white bg-primary p-4 rounded-2xl'>
+            <div className='flex w-[90%] justify-between rounded-2xl bg-primary p-4 text-white'>
               <div className='w-24'>
                 {'['}
                 <input
@@ -125,22 +125,22 @@ const Payment: NextPage = () => {
               </div>
               <span className='flex-1'>{Number(weight) * 4000} 원</span>
             </div>
-            <span className='font-normal text-sm'>
+            <span className='text-sm font-normal'>
               최대 40kg까지 입력 가능합니다.
             </span>
           </div>
         </div>
 
         <div>
-          <h3 className='font-bold text-lg'>초과 수확 열매 관리</h3>
-          <span className='font-normal text-sm'>
+          <h3 className='text-lg font-bold'>초과 수확 열매 관리</h3>
+          <span className='text-sm font-normal'>
             초과 수확 및 40kg 이하 설정 열매를 관리합니다
           </span>
         </div>
 
         <div className='flex justify-center gap-4'>
           <button
-            className={`border-[1px] border-black rounded-xl p-2 ${
+            className={`rounded-xl border-[1px] border-black p-2 ${
               isDonated ? 'bg-gray-200' : 'bg-white'
             }`}
             onClick={() => setIsDonated(true)}
@@ -148,7 +148,7 @@ const Payment: NextPage = () => {
             기부하기
           </button>
           <button
-            className={`border-[1px] border-black rounded-xl p-2 ${
+            className={`rounded-xl border-[1px] border-black p-2 ${
               isDonated ? 'bg-white' : 'bg-gray-200'
             }`}
             onClick={() => setIsDonated(false)}
@@ -159,7 +159,7 @@ const Payment: NextPage = () => {
 
         <div className='flex justify-center'>
           {isDonated && (
-            <div className='flex justify-between w-[90%] text-white bg-primary p-4 rounded-2xl'>
+            <div className='flex w-[90%] justify-between rounded-2xl bg-primary p-4 text-white'>
               <div className='w-24'>
                 {'['}
                 <input
@@ -177,60 +177,60 @@ const Payment: NextPage = () => {
         </div>
 
         <div className='flex flex-col items-center'>
-          <h3 className='font-bold text-lg p-2 border-black border-[1px] rounded-xl'>
+          <h3 className='rounded-xl border-[1px] border-black p-2 text-lg font-bold'>
             총 금액 : <span>{Number(weight) * 4000 + 6000} 원</span>
           </h3>
-          <span className='font-normal text-sm'>
+          <span className='text-sm font-normal'>
             최소 주문비 및 배송비 6000원 포함
           </span>
         </div>
 
-        <div className='flex flex-col items-center w-full'>
-          <h3 className='font-bold text-lg'>결제 정보 입력</h3>
+        <div className='flex w-full flex-col items-center'>
+          <h3 className='text-lg font-bold'>결제 정보 입력</h3>
           <form
             onSubmit={onSubmit}
-            className='w-full flex flex-col items-center gap-2'
+            className='flex w-full flex-col items-center gap-2'
           >
-            <div className='w-[90%] flex justify-between items-center px-3 py-2 rounded-xl border-[1px] border-black drop-shadow-md'>
+            <div className='flex w-[90%] items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'>
               <label htmlFor='name'>수령자 이름</label>
               <input
                 id='name'
                 type='text'
                 placeholder='이름'
                 required
-                className='bg-gray-200 rounded-lg p-1'
+                className='rounded-lg bg-gray-200 p-1'
               />
             </div>
-            <div className='w-[90%] flex justify-between items-center px-3 py-2 rounded-xl border-[1px] border-black drop-shadow-md'>
+            <div className='flex w-[90%] items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'>
               <label htmlFor='phoneNumber'>전화번호</label>
               <input
                 id='phoneNumber'
                 type='text'
                 placeholder='전화번호'
                 required
-                className='bg-gray-200 rounded-lg p-1'
+                className='rounded-lg bg-gray-200 p-1'
               />
             </div>
-            <div className='w-[90%] flex justify-between items-center px-3 py-2 rounded-xl border-[1px] border-black drop-shadow-md'>
+            <div className='flex w-[90%] items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'>
               <label htmlFor='destination'>배송지</label>
               <input
                 id='destination'
                 type='text'
                 placeholder='배송지'
                 required
-                className='bg-gray-200 rounded-lg p-1'
+                className='rounded-lg bg-gray-200 p-1'
               />
             </div>
-            <div className='w-[90%] flex justify-between items-center px-3 py-2 rounded-xl border-[1px] border-black drop-shadow-md'>
+            <div className='flex w-[90%] items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'>
               <label htmlFor='requirement'>추가 요청 사항</label>
               <input
                 id='requirement'
                 type='text'
                 placeholder='추가 요청 사항'
-                className='bg-gray-200 rounded-lg p-1'
+                className='rounded-lg bg-gray-200 p-1'
               />
             </div>
-            <div className='w-full flex justify-between gap-4'>
+            <div className='flex w-full justify-between gap-4'>
               <div className='flex flex-1 flex-col gap-2'>
                 <ReceiveRadio
                   label='택배 수령'
@@ -251,8 +251,8 @@ const Payment: NextPage = () => {
                   onChangeReceive={onChangeReceive}
                 />
               </div>
-              <div className='w-full flex flex-1 flex-col gap-2'>
-                <div className='flex flex-1 items-center justify-between py-3 px-8 bg-gray-200 rounded-xl drop-shadow-md'>
+              <div className='flex w-full flex-1 flex-col gap-2'>
+                <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
                   <label htmlFor='simple' className='flex-1'>
                     간편결제
                   </label>
@@ -265,7 +265,7 @@ const Payment: NextPage = () => {
                     checked={payment === 'simple'}
                   />
                 </div>
-                <div className='flex flex-1 items-center justify-between py-3 px-8 bg-gray-200 rounded-xl drop-shadow-md'>
+                <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
                   <label htmlFor='card' className='flex-1'>
                     카드
                   </label>
@@ -278,7 +278,7 @@ const Payment: NextPage = () => {
                     checked={payment === 'card'}
                   />
                 </div>
-                <div className='flex flex-1 items-center justify-between py-3 px-8 bg-gray-200 rounded-xl drop-shadow-md'>
+                <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
                   <label htmlFor='noBankbook' className='flex-1'>
                     무통장입금
                   </label>
@@ -295,7 +295,7 @@ const Payment: NextPage = () => {
             </div>
             <a
               href={config.next_redirect_pc_url}
-              className='flex justify-center items-center bg-primary w-[200px] h-[40px] rounded-xl text-white'
+              className='flex h-[40px] w-[200px] items-center justify-center rounded-xl bg-primary text-white'
             >
               결제
             </a>

@@ -38,11 +38,11 @@ const Farms: NextPage = () => {
             {farms.map((farm) => {
               return (
                 <li key={farm.farmId} className='relative'>
-                  <FarmImages className='p-4 w-full flex gap-3 snap-x snap-mandatory overflow-x-auto scroll-none'>
+                  <FarmImages className='scroll-none flex w-full snap-x snap-mandatory gap-3 overflow-x-auto p-4'>
                     {farm.images.map((imageURL, index) => {
                       return (
                         <li key={index} className='snap-center snap-normal'>
-                          <div className='z-10 relative w-[256px] h-[178px] drop-shadow-md'>
+                          <div className='relative z-10 h-[178px] w-[256px] drop-shadow-md'>
                             <Image
                               src={imageURL}
                               alt='농가 이미지'
@@ -56,7 +56,7 @@ const Farms: NextPage = () => {
                     })}
                   </FarmImages>
                   <Link href={`/farms/${farm.farmId}`}>
-                    <a className='min-w-[80%] min-h-[158px] relative bottom-12 pt-16 px-4 pb-4 bg-gray-200 rounded-xl grid grid-rows-3 justify-items-center'>
+                    <a className='relative bottom-12 grid min-h-[158px] min-w-[80%] grid-rows-3 justify-items-center rounded-xl bg-gray-200 px-4 pt-16 pb-4'>
                       <p>농가명 : {farm.farmName}</p>
                       <p>농가 주소 : {farm.address}</p>
                       <p>{farm.introduction}</p>

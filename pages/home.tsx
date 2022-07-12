@@ -69,9 +69,10 @@ const MainPage: NextPage = () => {
       })();
     });
   }, [config]);
+
   return (
     <Layout>
-      <div className='flex flex-col items-center w-auto h-full gap-4'>
+      <div className='flex h-full w-auto flex-col items-center gap-4'>
         <div className='relative w-[400px]'>
           <Image
             src='/weather.png'
@@ -86,7 +87,7 @@ const MainPage: NextPage = () => {
         <MyPlantList className=''>
           {!plants || plants.length === 0 ? (
             <>
-              <p className='flex justify-center items-center rounded-lg bg-gray-200 w-full h-[200px]'>
+              <p className='flex h-[200px] w-full items-center justify-center rounded-lg bg-gray-200'>
                 나만의 작물을 심어보세요!
               </p>
             </>
@@ -96,8 +97,8 @@ const MainPage: NextPage = () => {
                 return (
                   <MyPlantItem key={plant.plantId} className='items-center'>
                     <Link href={`/plant/${plant.plantId}`}>
-                      <a className='bg-primary flex flex-col items-center rounded-lg min-w-[181px] h-[285px] justify-between'>
-                        <div className='relative w-[180px] h-[250px] border-[1px] border-gray-400 rounded-lg'>
+                      <a className='flex h-[285px] min-w-[181px] flex-col items-center justify-between rounded-lg bg-primary'>
+                        <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
                           <Image
                             src={plant.image}
                             alt={'my plant'}
@@ -106,7 +107,7 @@ const MainPage: NextPage = () => {
                             className='rounded-lg'
                           />
                         </div>
-                        <p className='text-white p-2'>{plant.name}</p>
+                        <p className='p-2 text-white'>{plant.name}</p>
                       </a>
                     </Link>
                     <p className='p-1'>{plant.weather}</p>
@@ -117,7 +118,7 @@ const MainPage: NextPage = () => {
           )}
         </MyPlantList>
         <Link href='/recomand'>
-          <a className='px-8 py-2 border-[1px] border-gray-400 rounded-xl'>
+          <a className='rounded-xl border-[1px] border-gray-400 px-8 py-2'>
             🌳 내 나무 만들기
           </a>
         </Link>

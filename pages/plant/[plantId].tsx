@@ -31,8 +31,8 @@ const PlantFeed: NextPage = () => {
         ) : (
           <>
             <div className='flex flex-col items-center'>
-              <div className='bg-primary flex flex-col items-center rounded-lg min-w-[335px] h-[285px] justify-between'>
-                <div className='relative w-full h-full border-[1px] border-gray-400 rounded-lg'>
+              <div className='flex h-[285px] min-w-[335px] flex-col items-center justify-between rounded-lg bg-primary'>
+                <div className='relative h-full w-full rounded-lg border-[1px] border-gray-400'>
                   <Image
                     src={myPlantFeed.feeds[0].images[0]}
                     alt='lastest feed'
@@ -41,7 +41,7 @@ const PlantFeed: NextPage = () => {
                     className='rounded-lg'
                   />
                 </div>
-                <p className='text-white p-2'>{myPlantFeed.plantName}</p>
+                <p className='p-2 text-white'>{myPlantFeed.plantName}</p>
               </div>
 
               <span className='text-sm'>
@@ -56,11 +56,11 @@ const PlantFeed: NextPage = () => {
               </p>
             </div>
 
-            <div className='flex flex-col items-center bg-primary rounded-lg'>
+            <div className='flex flex-col items-center rounded-lg bg-primary'>
               <h3 className='py-2 text-white'>
                 {myPlantFeed.plantName}의 성장 일지
               </h3>
-              <ul className='flex flex-col gap-5 bg-white w-full rounded-lg'>
+              <ul className='flex w-full flex-col gap-5 rounded-lg bg-white'>
                 {myPlantFeed.feeds.map((feed) => {
                   return (
                     <li key={feed.feedId}>
@@ -68,7 +68,7 @@ const PlantFeed: NextPage = () => {
                         {dayjs(feed.createdAt).format('YYYY.MM.DD. hh:mm A')}
                       </p>
                       <div className='flex justify-between'>
-                        <div className='relative w-[180px] h-[250px] border-[1px] border-gray-400 rounded-lg'>
+                        <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
                           <Image
                             src={feed.images[0]}
                             alt='feed image'
@@ -77,7 +77,7 @@ const PlantFeed: NextPage = () => {
                             className='rounded-lg'
                           />
                         </div>
-                        <div className='p-2 flex flex-col flex-1 items-center gap-3'>
+                        <div className='flex flex-1 flex-col items-center gap-3 p-2'>
                           <h3 className='font-bold'>과수원의 한마디</h3>
                           <p>{feed.content}</p>
                         </div>

@@ -28,7 +28,7 @@ const plantList = [
 const Recomand: NextPage = () => {
   return (
     <Layout>
-      <div className='flex flex-col items-start w-auto min-h-full'>
+      <div className='flex min-h-full w-auto flex-col items-start'>
         <div className='py-12'>
           <h1 className='py-2 text-xl'>과일 고르기</h1>
           <p>과일 상세품종은 과수원에서 선택 가능합니다.</p>
@@ -39,7 +39,7 @@ const Recomand: NextPage = () => {
               <PlantItem key={index} className={`text-white ${plant.bgColor}`}>
                 <Link href={`/recomand/${plant.name}`}>
                   <a>
-                    <div className='relative w-[100px] h-[100px]'>
+                    <div className='relative h-[100px] w-[100px]'>
                       <Image
                         src={plant.plantImageUrl}
                         alt='plant'
@@ -47,7 +47,7 @@ const Recomand: NextPage = () => {
                         objectFit='cover'
                       />
                     </div>
-                    <p className='text-lg font-bold py-1'>{plant.name}</p>
+                    <p className='py-1 text-lg font-bold'>{plant.name}</p>
                     <p className='text-sm'>{plant.description}</p>
                   </a>
                 </Link>

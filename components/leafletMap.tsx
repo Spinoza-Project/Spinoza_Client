@@ -48,7 +48,7 @@ const LeafletMap: React.FC<PropsType> = (props) => {
   }, []);
 
   return (
-    <div id='map' className='w-screen h-[50vh]'>
+    <div id='map' className='h-[50vh] w-screen'>
       <MapContainer
         center={DEFAULT_CENTER}
         scrollWheelZoom={true}

@@ -39,17 +39,17 @@ const Reservation: NextPage = () => {
     <Layout>
       <div className='flex flex-col items-center gap-3 py-3'>
         <p>경상북도 영주시 풍기읍 전구리 232-1</p>
-        <ul className='bg-[#6D3300] grid grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] min-w-[360px] min-h-[472px] rounded-3xl p-3'>
+        <ul className='grid min-h-[472px] min-w-[360px] grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] rounded-3xl bg-[#6D3300] p-3'>
           {reservations.map((reservation, index) => {
             return (
               <li
                 key={index}
                 onClick={() => onSelectSeat(index)}
-                className={`relative flex flex-col items-center justify-center m-1 bg-gray-200 rounded-3xl ${
+                className={`relative m-1 flex flex-col items-center justify-center rounded-3xl bg-gray-200 ${
                   selectedSeatIndex === index ? 'border-4 border-red-500' : ''
                 }`}
               >
-                <div className='relative w-4 h-4'>
+                <div className='relative h-4 w-4'>
                   <Image
                     src={reservation.fruitType.image}
                     alt='fruitType'
@@ -64,7 +64,7 @@ const Reservation: NextPage = () => {
           })}
         </ul>
         <Link href={`/payment`}>
-          <a className='flex justify-center items-center border-[1px] border-gray-400 h-[65px] w-[230px] rounded-xl'>
+          <a className='flex h-[65px] w-[230px] items-center justify-center rounded-xl border-[1px] border-gray-400'>
             선택 완료
           </a>
         </Link>

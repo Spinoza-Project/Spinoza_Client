@@ -11,7 +11,7 @@ const ReceiveRadio: React.FC<PropsType> = ({
   onChangeReceive,
 }) => {
   return (
-    <div className='flex flex-1 items-center justify-between py-3 px-8 bg-gray-200 rounded-xl drop-shadow-md'>
+    <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
       <label htmlFor={value} className='flex-1'>
         {label}
       </label>
