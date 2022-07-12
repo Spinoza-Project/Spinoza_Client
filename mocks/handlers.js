@@ -169,6 +169,33 @@ export const handlers = [
           farmName: '더 착한 사과',
           address: '경상북도 영주시 풍기읍 전구리 232-1',
           phoneNumber: '010-8474-5638',
+          grade: 4.5,
+          tours: [
+            {
+              _id: '62cd40ee964b830218d7a6fc',
+              tourName: '부석사',
+              tourImage:
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%87%E1%85%AE%E1%84%89%E1%85%A5%E1%86%A8%E1%84%89%E1%85%A1.jpeg',
+            },
+            {
+              _id: '62cd420d964b830218d7a6fd',
+              tourName: '국립산림치유원',
+              tourImage:
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%80%E1%85%AE%E1%86%A8%E1%84%85%E1%85%B5%E1%86%B8%E1%84%89%E1%85%A1%E1%86%AB%E1%84%85%E1%85%B5%E1%86%B7%E1%84%8E%E1%85%B5%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%AF%E1%86%AB.jpeg',
+            },
+            {
+              _id: '62cd423d964b830218d7a6fe',
+              tourName: '소백산',
+              tourImage:
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%A9%E1%84%87%E1%85%A2%E1%86%A8%E1%84%89%E1%85%A1%E1%86%AB.jpeg',
+            },
+            {
+              _id: '62cd426a964b830218d7a6ff',
+              tourName: '소수서원',
+              tourImage:
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%A9%E1%84%89%E1%85%AE%E1%84%89%E1%85%A5%E1%84%8B%E1%85%AF%E1%86%AB.jpeg',
+            },
+          ],
           fruitTypes: [
             {
               _id: '62a71fbc57e6ac739cb8dc80',
@@ -195,10 +222,12 @@ export const handlers = [
                 'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/hongro.png',
             },
           ],
+          hashTags: ['가족끼리', '당도맛집', '마운틴뷰', '힐링갬성'],
           introduction:
             '저희는 베테랑 사과농사 부부입니다. 과수원 집에서 태어나 사과를 봐오고 평생을 사과농사를 지어가면서 살아왔습니다. 30년 긴 세월의 노하우와 기술력을 바탕으로 직접 기른 사과를 산지 직송으로 보내드리겠습니다.',
           images: [
             'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/%E1%84%83%E1%85%A5%E1%84%8E%E1%85%A1%E1%86%A8%E1%84%92%E1%85%A1%E1%86%AB%E1%84%89%E1%85%A1%E1%84%80%E1%85%AA%E1%84%82%E1%85%A9%E1%86%BC%E1%84%8C%E1%85%A1%E1%86%BC%E1%84%8C%E1%85%AE.jpeg',
+            'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/1.jpg',
           ],
         },
       })

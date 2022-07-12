@@ -35,7 +35,7 @@ const Layout = ({
           {children}
         </div>
       </main>
-      {hasNav && <Nav />}
+      {/* {hasNav && <Nav />} */}
     </>
   );
 };
