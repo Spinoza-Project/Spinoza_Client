@@ -12,7 +12,7 @@ const PlantFeed: NextPage = () => {
   const [myPlantFeed, setMyPlantFeed] = useState<MyPlantFeedType>();
   const router = useRouter();
   const { plantId } = router.query;
-  const { status } = useSession();
+  // const { status } = useSession();
 
   useEffect(() => {
     (async () => {
@@ -24,11 +24,10 @@ const PlantFeed: NextPage = () => {
       }
     })();
   }, [plantId]);
-
-  if (status === 'unauthenticated') {
-    router.replace('/signin');
-    return <div>로그인하세요.</div>;
-  }
+  // if (status === 'unauthenticated') {
+  //   router.replace('/signin');
+  //   return <div>로그인하세요.</div>;
+  // }
 
   return (
     <Layout>
@@ -74,7 +73,7 @@ const PlantFeed: NextPage = () => {
                       <p className='flex justify-center py-2'>
                         {dayjs(feed.createdAt).format('YYYY.MM.DD. hh:mm A')}
                       </p>
-                      <div className='flex'>
+                      <div className='flex justify-between'>
                         <div className='relative w-[180px] h-[250px] border-[1px] border-gray-400 rounded-lg'>
                           <Image
                             src={feed.images[0]}
@@ -84,7 +83,7 @@ const PlantFeed: NextPage = () => {
                             className='rounded-lg'
                           />
                         </div>
-                        <div className='p-2 flex flex-col items-center gap-3'>
+                        <div className='p-2 flex flex-col flex-1 items-center gap-3'>
                           <h3 className='font-bold'>과수원의 한마디</h3>
                           <p>{feed.content}</p>
                         </div>

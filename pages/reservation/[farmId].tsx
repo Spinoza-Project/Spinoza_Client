@@ -26,7 +26,6 @@ const Reservation: NextPage = () => {
       }
     })();
   }, [query]);
-
   const onSelect = (index: number) => {
     setSelected(index);
   };
@@ -37,14 +36,14 @@ const Reservation: NextPage = () => {
   return (
     <Layout>
       <div className='flex flex-col items-center gap-3 py-3'>
-        <p>주소</p>
+        <p>경상북도 영주시 풍기읍 전구리 232-1</p>
         <ul className='bg-[#6D3300] grid grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] min-w-[360px] min-h-[472px] rounded-3xl p-3'>
           {reservations.map((reservation, index) => {
             return (
               <li
                 key={index}
                 onClick={() => onSelect(index)}
-                className={`relative flex flex-col items-center justify-center m-1 p-1 bg-gray-200 rounded-3xl ${
+                className={`relative flex flex-col items-center justify-center m-1 bg-gray-200 rounded-3xl ${
                   selected === index ? 'border-4 border-red-500' : ''
                 }`}
               >

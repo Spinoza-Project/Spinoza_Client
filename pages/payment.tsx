@@ -1,18 +1,76 @@
+import axios from 'axios';
 import { NextPage } from 'next';
-import { config } from 'process';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Layout from '../components/layout';
 import ReceiveRadio from '../components/ReceiveRadio';
+// import { postKakaoPay } from './api/kakaoPay';
 
 type ReceiveType = 'parcel' | 'direct' | 'pickup';
 type PaymentType = 'simple' | 'card' | 'noBankbook';
 
 const Payment: NextPage = () => {
+  const initialConfig = {
+    next_redirect_pc_url: '',
+    tid: '',
+    params: {
+      cid: 'TC0ONETIME',
+      partner_order_id: 'partner_order_id',
+      partner_user_id: 'partner_user_id',
+      item_name: '자기 나무 심기',
+      quantity: 1,
+      total_amount: 26000,
+      vat_amount: 200,
+      tax_free_amount: 0,
+      approval_url: 'http://localhost:3000/home',
+      fail_url: 'http://localhost:3000/home',
+      cancel_url: 'http://localhost:3000/home',
+    },
+  };
+  const [config, setConfig] = useState(initialConfig);
   const [weight, setWeight] = useState('');
   const [donateWeight, setDonateWeight] = useState('');
   const [receive, setReceive] = useState<ReceiveType>('parcel');
   const [payment, setPayment] = useState<PaymentType>('simple');
   const [isDonated, setIsDonated] = useState(true);
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   console.log(weight);
+  //   setConfig((prev) => {
+  //     return {
+  //       ...prev,
+  //       params: {
+  //         ...prev.params,
+  //         total_amount: Number(weight) * 4000 + 6000,
+  //       },
+  //     };
+  //   });
+  // }, [weight]);
+
+  useEffect(() => {
+    const { params } = config;
+    axios({
+      url: '/v1/payment/ready',
+      method: 'POST',
+      headers: {
+        Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ADMIN_KEY}`,
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      params,
+    })
+      .then((response) => {
+        // 응답에서 필요한 data만 뽑는다.
+        const {
+          data: { next_redirect_pc_url, tid },
+        } = response;
+
+        window.localStorage.setItem('tid', tid);
+        // 응답 data로 state 갱신
+        setConfig({ next_redirect_pc_url, tid });
+      })
+      .catch((error) => {});
+  }, [config]);
 
   const onClickIsDonate = (e: ChangeEvent<HTMLInputElement>) => {
     setIsDonated(!isDonated);
@@ -22,6 +80,7 @@ const Payment: NextPage = () => {
       target: { value },
     } = e;
     setWeight(value);
+    setDonateWeight(40 - Number(value));
   };
   const onChangeDonation = (e: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -38,7 +97,6 @@ const Payment: NextPage = () => {
   };
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
   };
 
   return (
@@ -65,7 +123,7 @@ const Payment: NextPage = () => {
                 />
                 {'] kg'}
               </div>
-              <span className='flex-1'>{Number(weight) * 5000} 원</span>
+              <span className='flex-1'>{Number(weight) * 4000} 원</span>
             </div>
             <span className='font-normal text-sm'>
               최대 40kg까지 입력 가능합니다.
@@ -113,14 +171,14 @@ const Payment: NextPage = () => {
                 />
                 {'] kg'}
               </div>
-              <span className='flex-1'>A 센터에 기부하기</span>
+              <span className='flex-1'>한국사회복지협회에 기부하기</span>
             </div>
           )}
         </div>
 
         <div className='flex flex-col items-center'>
           <h3 className='font-bold text-lg p-2 border-black border-[1px] rounded-xl'>
-            총 금액 : <span>{Number(weight) * 5000 + 6000} 원</span>
+            총 금액 : <span>{Number(weight) * 4000 + 6000} 원</span>
           </h3>
           <span className='font-normal text-sm'>
             최소 주문비 및 배송비 6000원 포함
@@ -235,12 +293,12 @@ const Payment: NextPage = () => {
                 </div>
               </div>
             </div>
-            <button
-              type='submit'
-              className='bg-primary w-[200px] h-[40px] rounded-xl text-white'
+            <a
+              href={config.next_redirect_pc_url}
+              className='flex justify-center items-center bg-primary w-[200px] h-[40px] rounded-xl text-white'
             >
-              결제하기
-            </button>
+              결제
+            </a>
           </form>
         </div>
       </div>

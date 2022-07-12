@@ -29,12 +29,12 @@ const plantList = [
 
 const Recomand: NextPage = () => {
   const router = useRouter();
-  const { status } = useSession();
+  // const { status } = useSession();
 
-  if (status === 'unauthenticated') {
-    router.replace('/signin');
-    return <div>로그인하세요.</div>;
-  }
+  // if (status === 'unauthenticated') {
+  //   router.replace('/signin');
+  //   return <div>로그인하세요.</div>;
+  // }
 
   return (
     <Layout>

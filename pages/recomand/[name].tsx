@@ -1,10 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
 import dynamic from 'next/dynamic';
+import { getGeoJSONDataBySGG, getGeoJSONDataByUMD } from '../../lib/utils';
 
 type RecomandType = 'planti' | 'produce';
 const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
@@ -13,18 +14,42 @@ const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
 });
 
 const RecomandByPlant: NextPage = () => {
+  const [geoJsonBySGG, setGoeJsonBySGG] = useState(null);
+  const [geoJsonByUMD, setGoeJsonByUMD] = useState(null);
   const [recomandType, setRecomandType] = useState<RecomandType>('planti');
   const router = useRouter();
-  const { status } = useSession();
+  // const { status } = useSession();
+
+  useEffect(() => {
+    // 시/군 GeoJSON 불러오기
+    (async () => {
+      try {
+        const data = await getGeoJSONDataBySGG();
+        setGoeJsonBySGG(data);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+
+    // 읍/면/동 GeoJSON 불러오기
+    (async () => {
+      try {
+        const data = await getGeoJSONDataByUMD();
+        setGoeJsonByUMD(data);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, []);
 
   const onChangeRadio = (e: ChangeEvent<HTMLInputElement>) => {
     setRecomandType(e.target.value as RecomandType);
   };
 
-  if (status === 'unauthenticated') {
-    router.replace('/signin');
-    return <div>로그인하세요.</div>;
-  }
+  // if (status === 'unauthenticated') {
+  //   router.replace('/signin');
+  //   return <div>로그인하세요.</div>;
+  // }
   return (
     <>
       <Head>
@@ -58,7 +83,11 @@ const RecomandByPlant: NextPage = () => {
           </fieldset>
         </form>
         <div className='overflow-hidden'>
-          <MapWithNoSSR recomandType={recomandType} />
+          <MapWithNoSSR
+            recomandType={recomandType}
+            geoJsonBySGG={geoJsonBySGG}
+            geoJsonByUMD={geoJsonByUMD}
+          />
         </div>
       </Layout>
     </>

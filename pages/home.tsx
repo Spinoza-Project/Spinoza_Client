@@ -1,18 +1,29 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getPlants } from './api';
+import { getPlants, postReservation } from './api';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { PlantType } from '../types/PlantType.interface';
 import Layout from '../components/layout';
 import Link from 'next/link';
 import styled from '@emotion/styled';
+import axios from 'axios';
 
 const MainPage: NextPage = () => {
+  const initialConfig = {
+    params: {
+      cid: 'TC0ONETIME',
+      tid: '',
+      partner_order_id: 'partner_order_id',
+      partner_user_id: 'partner_user_id',
+      pg_token: '',
+    },
+  };
+  const [config, setConfig] = useState(initialConfig);
   const [plants, setPlants] = useState<PlantType[]>([]);
   const router = useRouter();
-  const { status } = useSession();
+  // const { status } = useSession();
 
   useEffect(() => {
     (async () => {
@@ -27,16 +38,62 @@ const MainPage: NextPage = () => {
     })();
   }, []);
 
-  if (status === 'unauthenticated') {
-    router.replace('/signin');
-    return <div>로그인하세요.</div>;
-  }
+  useEffect(() => {
+    const {
+      query: { pg_token },
+    } = router;
+    if (!pg_token) return;
+    setConfig((prev) => ({
+      params: {
+        ...prev.params,
+        pg_token: pg_token as string,
+        tid: localStorage.getItem('tid') as string,
+      },
+    }));
+  }, [router]);
+  useEffect(() => {
+    const { params } = config;
+    if (!params.tid || !params.pg_token) return;
+    console.log(params);
+    axios({
+      url: '/v1/payment/approve',
+      method: 'POST',
+      headers: {
+        Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ADMIN_KEY}`,
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      params,
+    }).then((response) => {
+      // 결제 승인에 대한 응답 출력
+      router.replace('/home');
+      (async () => {
+        await postReservation('62b55ddf5ebbcc992e03e3eb');
+      })();
+    });
+  }, [config]);
+  // console.log(router);
+  // console.log(config);
 
+  // if (status === 'unauthenticated') {
+  //   router.replace('/signin');
+  //   return <div>로그인하세요.</div>;
+  // }
   return (
     <Layout>
       <div className='flex flex-col items-center w-auto h-full gap-4'>
+        <div className='relative w-[400px]'>
+          <Image
+            src='/weather.png'
+            alt='weather'
+            width={400}
+            height={250}
+            // layout='fill'
+            // objectFit='cover'
+            // className='rounded-lg'
+          />
+        </div>
         <MyPlantList className=''>
-          {plants.length === 0 ? (
+          {!plants || plants.length === 0 ? (
             <>
               <p className='flex justify-center items-center rounded-lg bg-gray-200 w-full h-[200px]'>
                 나만의 작물을 심어보세요!

@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Authenticated from '../components/authenticated';
+import { getSignin } from './api';
 
 const SignIn: NextPage = () => {
   const [formStatus, setFormStatus] = useState<string>('');
@@ -10,37 +11,45 @@ const SignIn: NextPage = () => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const submitHandler = async (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  // const submitHandler = async (event: React.SyntheticEvent) => {
+  //   event.preventDefault();
 
-    const enteredEmail = emailInputRef.current?.value;
-    const enteredPassword = passwordInputRef.current?.value;
+  //   const enteredEmail = emailInputRef.current?.value;
+  //   const enteredPassword = passwordInputRef.current?.value;
 
-    const result = await signIn('credentials', {
-      redirect: false,
-      email: enteredEmail,
-      password: enteredPassword,
-    });
+  //   const result = await signIn('credentials', {
+  //     redirect: false,
+  //     email: enteredEmail,
+  //     password: enteredPassword,
+  //   });
 
-    if (!result.error) {
-      setFormStatus(`Log in Success!`);
-      router.replace('/home');
-    } else {
-      setFormStatus(`Error Occured : ${result.error}`);
-    }
-  };
+  //   if (!result.error) {
+  //     setFormStatus(`Log in Success!`);
+  //     router.replace('/home');
+  //   } else {
+  //     setFormStatus(`Error Occured : ${result.error}`);
+  //   }
+  // };
 
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === 'authenticated') {
-    router.replace('/home');
-    return <Authenticated />;
-  }
+  // if (status === 'authenticated') {
+  //   router.replace('/home');
+  //   return <Authenticated />;
+  // }
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!emailInputRef.current || !passwordInputRef.current) {
+      return;
+    }
+    getSignin(emailInputRef.current?.value, passwordInputRef.current?.value);
+  };
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={onSubmit}>
         <div>
           <label htmlFor='email'>Email</label>
           <input

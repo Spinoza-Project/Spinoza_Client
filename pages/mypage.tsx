@@ -11,7 +11,7 @@ import { getPlants } from './api';
 const MyPage: NextPage = () => {
   const [plants, setPlants] = useState<PlantType[]>([]);
   const router = useRouter();
-  const { status } = useSession();
+  // const { status } = useSession();
 
   useEffect(() => {
     (async () => {
@@ -26,10 +26,10 @@ const MyPage: NextPage = () => {
     })();
   }, []);
 
-  if (status === 'unauthenticated') {
-    router.replace('/signin');
-    return <div>로그인하세요.</div>;
-  }
+  // if (status === 'unauthenticated') {
+  //   router.replace('/signin');
+  //   return <div>로그인하세요.</div>;
+  // }
   return (
     <Layout>
       <ul>

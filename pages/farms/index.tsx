@@ -16,7 +16,7 @@ const Farms: NextPage = () => {
   useEffect(() => {
     if (!query) return;
     const { fruit, address } = query as { fruit: string; address: string };
-
+    if (!farms || !address) return;
     (async () => {
       try {
         const {
@@ -28,7 +28,6 @@ const Farms: NextPage = () => {
       }
     })();
   }, [query]);
-
   return (
     <Layout>
       <div>

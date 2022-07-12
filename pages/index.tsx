@@ -7,16 +7,16 @@ import Authenticated from '../components/authenticated';
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { status } = useSession();
+  // const { status } = useSession();
 
-  if (status === 'unauthenticated') {
-    router.replace('/signin');
-    return <div>로그인하세요.</div>;
-  }
-  if (status === 'authenticated') {
-    router.replace('/home');
-    return <Authenticated />;
-  }
+  // if (status === 'unauthenticated') {
+  //   router.replace('/signin');
+  //   return <div>로그인하세요.</div>;
+  // }
+  // if (status === 'authenticated') {
+  //   router.replace('/home');
+  //   return <Authenticated />;
+  // }
   return (
     <div className={styles.container}>
       <Link href='/signin'>
