@@ -125,9 +125,9 @@ const FarmDetail: NextPage = () => {
                   <Modal
                     show={showFruitTypeDetail.fruitTypeId === fruitType['_id']}
                     onCloseModal={onCloseModal}
-                    className='absolute top-10 left-1/4 z-[1010] flex max-h-max w-[290px] select-none flex-col items-center justify-center rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
+                    className='absolute top-10 left-1/4 max-h-max w-[290px] select-none flex-col rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
                   >
-                    <h1 className='flex items-center gap-2'>
+                    <h1 className='flex items-center justify-center gap-2'>
                       <div className='relative h-4 w-4'>
                         <Image
                           src={fruitType.image}

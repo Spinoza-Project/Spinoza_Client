@@ -19,7 +19,13 @@ const Modal: FC<PropsType> = ({ show, children, onCloseModal, className }) => {
         onClick={onCloseModal}
         className='fixed inset-0 z-[1000] text-center'
       ></div>
-      <div onClick={stopPropagation} className={className}>
+      <div onClick={stopPropagation} className={`${className} z-[1010]`}>
+        <button
+          onClick={onCloseModal}
+          className='text-md absolute top-1 right-2 cursor-pointer bg-transparent'
+        >
+          &times;
+        </button>
         {children}
       </div>
     </>

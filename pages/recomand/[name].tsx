@@ -76,41 +76,47 @@ const RecomandByPlant: NextPage = () => {
             geoJsonByUMD={geoJsonByUMD}
           />
         </div>
-        <form>
-          <fieldset className='flex'>
-            <div className='flex flex-1 flex-col items-center'>
-              <div className='rounded-full bg-primary px-3 py-1 text-white'>
-                <label htmlFor='planti-recomand'>당도</label>
-                <input
-                  type='radio'
-                  id='planti-recomand'
-                  name='planti-recomand'
-                  value='planti'
-                  onChange={onChangeRadio}
-                  checked={recomandType === 'planti'}
-                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
-                />
-              </div>
-              <span className='text-xs font-thin'>제일 맛있는 지역 추천</span>
-            </div>
-            <div className='flex flex-1 flex-col items-center'>
-              <div className='rounded-full bg-primary px-3 py-1 text-white'>
-                <label htmlFor='produce-recomand'>생산량</label>
-                <input
-                  type='radio'
-                  id='produce-recomand'
-                  name='produce-recomand'
-                  value='produce'
-                  onChange={onChangeRadio}
-                  checked={recomandType === 'produce'}
-                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
-                />
-              </div>
-              <span className='text-xs font-thin'>
-                제일 잘 자라는 지역 추천
-              </span>
-            </div>
-          </fieldset>
+        <form className='flex'>
+          <div className='flex flex-1 flex-col items-center'>
+            <label
+              htmlFor='planti-recomand'
+              className='flex items-center rounded-full bg-primary px-3 py-1 text-white'
+            >
+              당도
+              <input
+                type='radio'
+                id='planti-recomand'
+                name='planti-recomand'
+                value='planti'
+                onChange={onChangeRadio}
+                checked={recomandType === 'planti'}
+                className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
+              />
+            </label>
+            <span className='mt-1 text-xs font-thin'>
+              제일 맛있는 지역 추천
+            </span>
+          </div>
+          <div className='flex flex-1 flex-col items-center'>
+            <label
+              htmlFor='produce-recomand'
+              className='flex items-center rounded-full bg-primary px-3 py-1 text-white'
+            >
+              생산량
+              <input
+                type='radio'
+                id='produce-recomand'
+                name='produce-recomand'
+                value='produce'
+                onChange={onChangeRadio}
+                checked={recomandType === 'produce'}
+                className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
+              />
+            </label>
+            <span className='mt-1 text-xs font-thin'>
+              제일 잘 자라는 지역 추천
+            </span>
+          </div>
         </form>
       </Layout>
     </>
