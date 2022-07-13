@@ -39,7 +39,12 @@ const Reservation: NextPage = () => {
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col items-center gap-3 py-3'>
-        <p>경상북도 영주시 풍기읍 전구리 232-1</p>
+        <p>
+          과수원에서의 위치{' '}
+          <span className='cursor-pointer text-sm text-gray-400 underline'>
+            사진보기
+          </span>
+        </p>
         <ul className='grid min-h-[472px] min-w-[360px] grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] rounded-3xl bg-[#6D3300] p-3'>
           {reservations.map((reservation, index) => {
             return (

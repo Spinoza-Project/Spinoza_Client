@@ -8,9 +8,14 @@ import Image from 'next/image';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import LogoHeader from '../../components/LogoHeader';
+import Modal from '../../components/Modal';
 
-const FormDetail: NextPage = () => {
+const FarmDetail: NextPage = () => {
   const [farmDetail, setFarmDetail] = useState<FarmDetailType>();
+  const [showFruitTypeDetail, setShowFruitTypeDetail] = useState({
+    fruitTypeId: '',
+  });
+
   const router = useRouter();
   const { query } = router;
 
@@ -24,6 +29,19 @@ const FormDetail: NextPage = () => {
       }
     })();
   }, [query]);
+
+  const toggleFruitTypeDetail = (fruitTypeId: string) => {
+    setShowFruitTypeDetail((prev) => ({
+      fruitTypeId: fruitTypeId,
+    }));
+  };
+
+  const onCloseModal = () => {
+    setShowFruitTypeDetail((prev) => ({
+      ...prev,
+      fruitTypeId: '',
+    }));
+  };
 
   return (
     <Layout leftChild={<LogoHeader />}>
@@ -85,24 +103,78 @@ const FormDetail: NextPage = () => {
 
         <div className='flex flex-col items-center'>
           <h3 className='mb-2 font-bold'>과수원 품종 정보</h3>
-          <ul className='grid w-full grid-cols-3 justify-items-center rounded-xl bg-gray-200 p-1'>
-            {farmDetail?.fruitTypes.map((fruitType, index) => {
+          <ul className='relative grid w-full grid-cols-3 justify-items-center rounded-xl bg-gray-200 p-1'>
+            {farmDetail?.fruitTypes.map((fruitType) => {
               return (
-                <li key={index} className='flex items-center gap-2'>
-                  <div className='relative h-4 w-4'>
-                    <Image
-                      src={fruitType.image}
-                      alt='fruitType'
-                      layout='fill'
-                      objectFit='cover'
-                      className='rounded-xl'
-                    />
-                  </div>
-                  <span>{fruitType.name}</span>
-                </li>
+                <div key={fruitType['_id']}>
+                  <li
+                    className='flex cursor-pointer items-center gap-2'
+                    onClick={() => toggleFruitTypeDetail(fruitType['_id'])}
+                  >
+                    <div className='relative h-4 w-4'>
+                      <Image
+                        src={fruitType.image}
+                        alt='fruitType'
+                        layout='fill'
+                        objectFit='cover'
+                        className='rounded-xl'
+                      />
+                    </div>
+                    <span>{fruitType.name}</span>
+                  </li>
+                  <Modal
+                    show={showFruitTypeDetail.fruitTypeId === fruitType['_id']}
+                    onCloseModal={onCloseModal}
+                    className='absolute top-10 left-1/4 z-[1010] flex max-h-max w-[290px] select-none flex-col items-center justify-center rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
+                  >
+                    <h1 className='flex items-center gap-2'>
+                      <div className='relative h-4 w-4'>
+                        <Image
+                          src={fruitType.image}
+                          alt='fruitType'
+                          layout='fill'
+                          objectFit='cover'
+                          className='rounded-xl'
+                        />
+                      </div>
+                      <span className='text-xl font-bold'>
+                        {fruitType.name}
+                      </span>
+                    </h1>
+                    <p>
+                      {fruitType.information.split('\n').map((line) => {
+                        return (
+                          <>
+                            {line}
+                            <br />
+                          </>
+                        );
+                      })}
+                    </p>
+                  </Modal>
+                </div>
               );
             })}
           </ul>
+          <p className='mt-1 flex items-center text-sm text-gray-400'>
+            <span>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-4 w-4'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                />
+              </svg>
+            </span>
+            품종을 눌러 품정 정보를 확인해보세요!
+          </p>
         </div>
 
         <div className='flex flex-col items-center'>
@@ -146,4 +218,4 @@ const FarmImages = styled.ul`
 const FruitType = styled.div<{ fruitTypeColor: string }>`
   background-color: ${(props) => props.fruitTypeColor};
 `;
-export default FormDetail;
+export default FarmDetail;
