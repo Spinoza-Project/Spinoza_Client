@@ -22,7 +22,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('/api/plant', (req, res, ctx) => {
+  rest.get('/api/user/plant', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -100,7 +100,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('/api/farm', (req, res, ctx) => {
+  rest.get('/api/user/farm', (req, res, ctx) => {
     const fruit = req.url.searchParams.get('fruit');
     const address = req.url.searchParams.get('address');
 
@@ -168,7 +168,7 @@ export const handlers = [
     );
   }),
 
-  rest.get('/api/farm/:farmId', (req, res, ctx) => {
+  rest.get('/api/user/farm/:farmId', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

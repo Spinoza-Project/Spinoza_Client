@@ -52,11 +52,39 @@ const FormDetail: NextPage = () => {
             <h3 className='col-span-2 font-bold'>과수원 주인 연락처</h3>
             <h3 className='col-span-2 font-bold'>리뷰</h3>
             <p className='col-span-2'>{farmDetail?.phoneNumber}</p>
-            <p className='col-span-2'>{'4.5 / 5'}</p>
+            <p className='col-span-2'>{`${farmDetail?.grade} / 5`}</p>
           </div>
         </div>
+
+        <div className='flex justify-center'>
+          <ul className='flex gap-4'>
+            {farmDetail?.tours.map((tour) => {
+              return (
+                <li key={tour['_id']} className='flex flex-col items-center'>
+                  {/* <div className='relative h-[60px] w-[60px] rounded-full'></div> */}
+                  {/* <Image
+                    src={tour.tourImage}
+                    alt='tour image'
+                    layout='fill'
+                    objectFit='cover'
+                  /> */}
+                  <span className='text-xs'>{tour.distance}km</span>
+                  <img
+                    src={tour.tourImage}
+                    width={60}
+                    height={60}
+                    alt='tour image'
+                    className='rounded-full'
+                  />
+                  <span>{tour.tourName}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
         <div className='flex flex-col items-center'>
-          <h3 className='font-bold'>과수원 품종 정보</h3>
+          <h3 className='mb-2 font-bold'>과수원 품종 정보</h3>
           <ul className='grid w-full grid-cols-3 justify-items-center rounded-xl bg-gray-200 p-1'>
             {farmDetail?.fruitTypes.map((fruitType, index) => {
               return (
@@ -76,12 +104,27 @@ const FormDetail: NextPage = () => {
             })}
           </ul>
         </div>
+
         <div className='flex flex-col items-center'>
-          <h3 className='font-bold'>과수원의 한마디</h3>
+          <h3 className='mb-2 font-bold'>과수원의 특징</h3>
+          <ul className='flex w-full flex-wrap justify-between'>
+            {farmDetail?.hashTags.map((tag, index) => {
+              return (
+                <li key={index} className='rounded-full bg-gray-200 px-4'>
+                  # {tag}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <div className='flex flex-col items-center'>
+          <h3 className='mb-2 font-bold'>과수원의 한마디</h3>
           <p className='w-full rounded-xl bg-gray-200 p-3'>
             {farmDetail?.introduction}
           </p>
         </div>
+
         <Link href={`/reservation/${query.farmId}`}>
           <a className='flex items-center justify-center rounded-xl border-[1px] border-gray-400 px-8 py-2'>
             🌳 나무 자리 고르기

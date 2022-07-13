@@ -222,7 +222,7 @@ const Recomand: NextPage = () => {
             );
           })}
         </ul>
-        <ul className='grid h-[250px] grid-cols-2 gap-4 overflow-scroll'>
+        <ul className='scroll-hiden grid h-[250px] grid-cols-2 gap-4 overflow-y-scroll'>
           {plantList
             .filter((plant) => {
               if (selectedPlantMenu === ALL_PLANTS) {

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import useSWR, { mutate } from 'swr';
 import fetcher from '../lib/fetcher';
-import { getSignin } from './api';
 
 const SignIn: NextPage = () => {
   const { data, error, mutate } = useSWR('/api/me', fetcher);

@@ -44,7 +44,7 @@ const Reservation: NextPage = () => {
           {reservations.map((reservation, index) => {
             return (
               <li
-                key={index}
+                key={reservation['_id']}
                 onClick={() => onSelectSeat(index)}
                 className={`relative m-1 flex flex-col items-center justify-center rounded-3xl bg-gray-200 ${
                   selectedSeatIndex === index ? 'border-4 border-red-500' : ''
