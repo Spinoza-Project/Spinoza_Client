@@ -1,11 +1,5 @@
 import axios from 'axios';
 
-export const getSignin = async (email: string, password: string) => {
-  return await axios.post('/api/user/signin', {
-    email: email,
-    password: password,
-  });
-};
 export const getPlants = async () => {
   const { data } = await axios.get('/api/plant');
   return data;
@@ -35,4 +29,8 @@ export const getReservations = async (farmId: string) => {
 
 export const postReservation = async (farmId: string) => {
   return await axios.post('/api/plant', { farmId });
+};
+
+export const getTourList = async () => {
+  return await axios.get('/api/user/farm/tour');
 };

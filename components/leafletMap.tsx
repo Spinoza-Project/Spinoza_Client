@@ -8,16 +8,22 @@ import MapBySGG from './MapBySGG';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
+import { TourType } from '../types/TourType.interface';
 
 interface PropsType {
+  tourList: TourType[] | null;
   recomandType: 'planti' | 'produce';
   geoJsonBySGG: any;
   geoJsonByUMD: any;
 }
 const DEFAULT_CENTER = [36.4919, 128.8889] as LatLngExpression;
 
-const LeafletMap: React.FC<PropsType> = (props) => {
-  const { recomandType, geoJsonBySGG, geoJsonByUMD } = props;
+const LeafletMap: React.FC<PropsType> = ({
+  tourList,
+  recomandType,
+  geoJsonBySGG,
+  geoJsonByUMD,
+}) => {
   const [produce, setProduce] = useState<{
     [key: string]: { [key: string]: number };
   }>();
@@ -64,10 +70,15 @@ const LeafletMap: React.FC<PropsType> = (props) => {
             geoJsonByUMD={geoJsonByUMD}
             geoJsonBySGG={geoJsonBySGG}
             sugar={sugar}
+            tourList={tourList}
           />
         )}
         {recomandType === 'produce' && geoJsonBySGG && produce && (
-          <MapBySGG geoJsonBySGG={geoJsonBySGG} produce={produce} />
+          <MapBySGG
+            geoJsonBySGG={geoJsonBySGG}
+            produce={produce}
+            tourList={tourList}
+          />
         )}
       </MapContainer>
     </div>

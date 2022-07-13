@@ -1,4 +1,5 @@
 import { FeatureType } from '../types';
+import { TourType } from '../types/TourType.interface';
 import ReactDOMServer from 'react-dom/server';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import { GeoJSON } from 'react-leaflet';
 import { EMPTY_COLOR, ROCOMAND_COLORS } from '../lib/utils';
 
 interface PropsType {
+  tourList: TourType[] | null;
   sugar: any;
   geoJsonByUMD: any;
   geoJsonBySGG: any;

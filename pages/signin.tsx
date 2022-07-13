@@ -1,9 +1,15 @@
+import axios from 'axios';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
+import useSWR, { mutate } from 'swr';
+import fetcher from '../lib/fetcher';
 import { getSignin } from './api';
 
 const SignIn: NextPage = () => {
+  const { data, error, mutate } = useSWR('/api/me', fetcher);
   const [formStatus, setFormStatus] = useState<string>('');
+  const router = useRouter();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
@@ -14,8 +20,23 @@ const SignIn: NextPage = () => {
     if (!emailInputRef.current || !passwordInputRef.current) {
       return;
     }
-    getSignin(emailInputRef.current?.value, passwordInputRef.current?.value);
+
+    axios
+      .post('/api/signin', {
+        email: emailInputRef.current.value,
+        password: passwordInputRef.current.value,
+      })
+      .then(() => {
+        mutate();
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
+  if (data) {
+    router.replace('/home');
+    return <div>로그인 성공</div>;
+  }
   return (
     <div>
       <h1>Login</h1>
