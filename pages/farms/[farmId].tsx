@@ -20,6 +20,8 @@ const FarmDetail: NextPage = () => {
   const { query } = router;
 
   useEffect(() => {
+    const { farmId } = query;
+    if (!farmId) return;
     (async () => {
       try {
         const { data } = await getFarmDetail(query.farmId as string);
@@ -28,7 +30,7 @@ const FarmDetail: NextPage = () => {
         console.error(e);
       }
     })();
-  }, [query]);
+  }, [router]);
 
   const toggleFruitTypeDetail = (fruitTypeId: string) => {
     setShowFruitTypeDetail((prev) => ({

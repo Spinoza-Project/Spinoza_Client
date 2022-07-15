@@ -7,21 +7,10 @@ import { PlantType } from '../types/PlantType.interface';
 import Layout from '../components/layout';
 import Link from 'next/link';
 import styled from '@emotion/styled';
-import axios from 'axios';
 import LogoHeader from '../components/LogoHeader';
 import Modal from '../components/Modal';
 
 const MainPage: NextPage = () => {
-  const initialConfig = {
-    params: {
-      cid: 'TC0ONETIME',
-      tid: '',
-      partner_order_id: 'partner_order_id',
-      partner_user_id: 'partner_user_id',
-      pg_token: '',
-    },
-  };
-  const [config, setConfig] = useState(initialConfig);
   const [plants, setPlants] = useState<PlantType[]>([]);
   const [showPlantingType, setShowPlantingType] = useState(false);
 
@@ -40,39 +29,6 @@ const MainPage: NextPage = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    const {
-      query: { pg_token },
-    } = router;
-    if (!pg_token) return;
-    setConfig((prev) => ({
-      params: {
-        ...prev.params,
-        pg_token: pg_token as string,
-        tid: localStorage.getItem('tid') as string,
-      },
-    }));
-  }, [router]);
-  useEffect(() => {
-    const { params } = config;
-    if (!params.tid || !params.pg_token) return;
-    axios({
-      url: '/v1/payment/approve',
-      method: 'POST',
-      headers: {
-        Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ADMIN_KEY}`,
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-      },
-      params,
-    }).then((response) => {
-      // 결제 승인에 대한 응답 출력
-      router.replace('/home');
-      (async () => {
-        await postReservation('62b55ddf5ebbcc992e03e3eb');
-      })();
-    });
-  }, [config]);
-
   const onCloseModal = () => {
     setShowPlantingType(false);
   };
@@ -84,6 +40,7 @@ const MainPage: NextPage = () => {
 
     router.push('/recomand');
   };
+  // console.log(plants);
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
