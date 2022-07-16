@@ -9,8 +9,11 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 import LogoHeader from '../components/LogoHeader';
 import Modal from '../components/Modal';
+import fetcher from '../lib/fetcher';
+import useSWR from 'swr';
 
 const MainPage: NextPage = () => {
+  const { data: userData } = useSWR('/api/me', fetcher);
   const [plants, setPlants] = useState<PlantType[]>([]);
   const [showPlantingType, setShowPlantingType] = useState(false);
 
@@ -40,7 +43,11 @@ const MainPage: NextPage = () => {
 
     router.push('/recomand');
   };
-  // console.log(plants);
+
+  // if (!userData) {
+  //   router.replace('/signin');
+  //   return null;
+  // }
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
@@ -55,7 +62,7 @@ const MainPage: NextPage = () => {
             // className='rounded-lg'
           />
         </div>
-        <MyPlantList className=''>
+        <MyPlantList>
           {!plants || plants.length === 0 ? (
             <>
               <p className='flex h-[200px] w-full items-center justify-center rounded-lg bg-gray-200'>

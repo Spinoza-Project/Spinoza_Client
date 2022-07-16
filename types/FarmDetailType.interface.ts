@@ -18,4 +18,5 @@ export interface FruitType {
   name: string;
   information: string;
   image: string;
+  color: string;
 }

@@ -1,4 +1,4 @@
-import { FeatureType } from '../types';
+import { FeatureType } from '../types/common';
 import { TourType } from '../types/TourType.interface';
 import ReactDOMServer from 'react-dom/server';
 import Link from 'next/link';

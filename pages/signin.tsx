@@ -2,11 +2,15 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
+import { UserType } from '../types';
+
+const USER: UserType = 'USER';
+const FARMER: UserType = 'FARMER';
 
 const SignIn: NextPage = () => {
-  const { data, error, mutate } = useSWR('/api/me', fetcher);
+  const { data: userData, error, mutate } = useSWR('/api/me', fetcher);
   const [formStatus, setFormStatus] = useState<string>('');
   const router = useRouter();
 
@@ -32,8 +36,13 @@ const SignIn: NextPage = () => {
         console.error(e);
       });
   };
-  if (data) {
-    router.replace('/home');
+  if (userData) {
+    const { data: userType } = userData;
+    if (userType === USER) {
+      router.replace('/home');
+    } else if (userType === FARMER) {
+      router.replace('/farmer');
+    }
     return <div>로그인 성공</div>;
   }
   return (

@@ -23,7 +23,7 @@ const PlantFeed: NextPage = () => {
       }
     })();
   }, [plantId]);
-
+  console.log(myPlantFeed);
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col gap-5 py-3'>

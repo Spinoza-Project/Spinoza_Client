@@ -5,32 +5,39 @@ import { useEffect, useState } from 'react';
 import Layout from '../../components/layout';
 import LogoHeader from '../../components/LogoHeader';
 import { ReservationType } from '../../types/ReservationType.interface';
-import { getReservations } from '../api';
 
 import { useAtom } from 'jotai';
 import { useUpdateAtom } from 'jotai/utils';
 import { reservationId_atom, reservationPrice_atom } from '../../stores';
+import { FruitType } from '../../types/FarmDetailType.interface';
+import axios from 'axios';
 
 const Reservation: NextPage = () => {
   const [reservationId, setReservationid] = useAtom(reservationId_atom);
   const setReservationPrice = useUpdateAtom(reservationPrice_atom);
   const [reservations, setReservations] = useState<ReservationType[]>([]);
+  const [fruitTypes, setFruitsTypes] = useState<FruitType[]>([]);
+
   const router = useRouter();
   const { query } = router;
 
   useEffect(() => {
     const { farmId } = query;
     if (!farmId) return;
-    (async () => {
-      try {
+    axios
+      .get(`/api/user/farm/${farmId}/reservation`)
+      .then((res) => {
         const {
-          data: { reservations },
-        } = await getReservations(query.farmId as string);
+          data: {
+            data: { reservations, fruitTypes },
+          },
+        } = res;
         setReservations(reservations);
-      } catch (e) {
+        setFruitsTypes(fruitTypes);
+      })
+      .catch((e) => {
         console.error(e);
-      }
-    })();
+      });
   }, [query]);
 
   const onSelectSeat = (reservationId: string, price: number) => {
