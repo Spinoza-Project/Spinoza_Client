@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/layout';
 import LogoHeader from '../../components/LogoHeader';
-import { MyPlantFeedType } from '../../types/FeedType.interface';
 import { getPlantFeed } from '../api';
+import { PlantFeedType } from '../../types';
 
 const PlantFeed: NextPage = () => {
-  const [myPlantFeed, setMyPlantFeed] = useState<MyPlantFeedType>();
+  const [myPlantFeed, setMyPlantFeed] = useState<PlantFeedType>();
   const router = useRouter();
   const { plantId } = router.query;
 
@@ -23,7 +23,7 @@ const PlantFeed: NextPage = () => {
       }
     })();
   }, [plantId]);
-  console.log(myPlantFeed);
+
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col gap-5 py-3'>

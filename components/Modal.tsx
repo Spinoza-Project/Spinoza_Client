@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, MouseEvent, useCallback } from 'react';
 
 interface PropsType {
   show: boolean;
@@ -12,7 +12,7 @@ const Modal: FC<PropsType> = ({
   onCloseModal,
   className = '',
 }) => {
-  const stopPropagation = useCallback((e) => {
+  const stopPropagation = useCallback((e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
   }, []);
   if (!show) {

@@ -876,4 +876,76 @@ export const handlers = [
       })
     );
   }),
+  rest.get('/api/farmer/plant/:plantId/feed', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        status: 200,
+        success: true,
+        message: '피드 조회 성공',
+        data: {
+          userName: '조원빈',
+          plantName: '영감탱이',
+          plantImage:
+            'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/feed5.png',
+          farmName: '상주경천곶감농원',
+          farmAddress: '경상북도 상주시 이안면 양범리 260-15',
+          temperature: 28,
+          weather: '☀️',
+          humidity: 48,
+          feeds: [
+            {
+              feedId: '62b563a65ebbcc992e03e412',
+              images: [
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/feed6.png',
+              ],
+              content:
+                '슬슬 색이 나기 시작합니다^^ 올 가뭄에도 잘 버텨줘서 고마워~~',
+              comments: [
+                {
+                  userName: '더 착한 사과',
+                  profileImage:
+                    'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/farmer.png',
+                  comment: '과일이 잘 익었죠?',
+                },
+                {
+                  userName: '더 착한 사과',
+                  profileImage:
+                    'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/farmer.png',
+                  comment: '얼른 보내드리고 싶네요 ㅎㅎ.',
+                },
+                {
+                  userName: '조원빈',
+                  profileImage:
+                    'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/user.png',
+                  comment: '감사합니다 ㅎㅎ.',
+                },
+              ],
+              createdAt: '2021-09-02T12:35:00.000Z',
+            },
+            {
+              feedId: '62b563755ebbcc992e03e411',
+              images: [
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/feed5.png',
+              ],
+              content:
+                '예전에 비해 결실은 좋으나 또 솎아내려니 마음이 아프다.... 자란 아이들을 손으로 따내는것이 얼마나 힘든 일인지~~ 떨어진 감 만큼이나 남은 아이들이 잘 자라길^^',
+              comments: [],
+              createdAt: '2021-08-12T16:23:00.000Z',
+            },
+            {
+              feedId: '62b563305ebbcc992e03e410',
+              images: [
+                'https://sopt-bucket.s3.ap-northeast-2.amazonaws.com/feed4.png',
+              ],
+              content:
+                '감 나무가 이렇게 심겼습니다~~^^\n다른 분들이 사랑해주시는 만큼... 잘 자라지 않을까....\n기대를 해 봅니다',
+              comments: [],
+              createdAt: '2021-04-10T14:23:00.000Z',
+            },
+          ],
+        },
+      })
+    );
+  }),
 ];
