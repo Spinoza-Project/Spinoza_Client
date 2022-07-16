@@ -1,13 +1,22 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import fetcher from '../lib/fetcher';
 
 const LogoHeader = () => {
+  const { data: userData } = useSWR('/api/me', fetcher);
+  const router = useRouter();
+
+  const goHome = () => {
+    if (userData) {
+      const { data } = userData;
+      router.push(data === 'USER' ? '/home' : '/farmer');
+    }
+  };
   return (
-    <Link href='/home'>
-      <a>
-        <Image src='/logo.png' alt='logo' width={130} height={54} />
-      </a>
-    </Link>
+    <button onClick={goHome}>
+      <Image src='/logo.png' alt='logo' width={130} height={54} />
+    </button>
   );
 };
 

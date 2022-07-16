@@ -20,7 +20,6 @@ const FarmerHome = () => {
     axios
       .get('/api/farmer/farm')
       .then((res) => {
-        console.log(res);
         const {
           data: {
             data: { farms },
@@ -37,7 +36,6 @@ const FarmerHome = () => {
   //   router.replace('/signin');
   //   return null;
   // }
-  // console.log(farmList);
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
@@ -62,7 +60,6 @@ const FarmerHome = () => {
           ) : (
             <ul className='flex items-center'>
               {farmList.map((farm) => {
-                console.log(farm);
                 return (
                   <MyFarmItem key={farm.farmId} className='items-center'>
                     <Link href={`/farmer/${farm.farmId}`}>

@@ -49,7 +49,6 @@ const MyFarmDetail = () => {
     router.push(`/farmer/plant/${plantId}`);
   };
 
-  console.log(reservations);
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex flex-col gap-4'>

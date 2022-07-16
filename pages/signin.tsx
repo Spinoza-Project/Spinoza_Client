@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import { UserType } from '../types';
@@ -17,7 +17,7 @@ const SignIn: NextPage = () => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!emailInputRef.current || !passwordInputRef.current) {
@@ -37,12 +37,8 @@ const SignIn: NextPage = () => {
       });
   };
   if (userData) {
-    const { data: userType } = userData;
-    if (userType === USER) {
-      router.replace('/home');
-    } else if (userType === FARMER) {
-      router.replace('/farmer');
-    }
+    const { data } = userData;
+    router.replace(data === 'USER' ? '/home' : '/farmer');
     return <div>로그인 성공</div>;
   }
   return (

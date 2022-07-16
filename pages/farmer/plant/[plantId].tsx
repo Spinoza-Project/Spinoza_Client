@@ -49,6 +49,13 @@ const PlantFeed = () => {
     setShowCommentInputModal(false);
   };
 
+  const writeFeed = () => {
+    const { plantId } = query;
+    if (!plantId) {
+      return;
+    }
+    router.push(`/farmer/write?plantId=${plantId}`);
+  };
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex w-full flex-col items-center gap-5 py-3'>
@@ -69,7 +76,7 @@ const PlantFeed = () => {
                   {plantFeed.plantImage ? (
                     <Image
                       src={plantFeed.plantImage}
-                      alt='lastest feed'
+                      alt='썸네일'
                       layout='fill'
                       objectFit='cover'
                       className='rounded-lg'
@@ -97,6 +104,7 @@ const PlantFeed = () => {
               <h3>피드를 남겨 농장주와 소통해보세요!</h3>
               <button
                 type='button'
+                onClick={writeFeed}
                 className='w-full rounded-xl bg-primary px-6 py-2 text-lg text-white'
               >
                 피드 추가하기
