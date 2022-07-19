@@ -1,7 +1,10 @@
 export interface PlantType {
-  image: string;
-  name: string;
   plantId: string;
+  farmName: string;
+  farmAddress: string;
+  notifications: number;
+  name: string;
+  image: string;
   weather: string;
-  template: number;
+  temperature: number;
 }

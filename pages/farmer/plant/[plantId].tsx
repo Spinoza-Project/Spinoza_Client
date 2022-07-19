@@ -26,7 +26,10 @@ const PlantFeed = () => {
     data: plantFeedData,
     error,
     mutate: mutateFeedData,
-  } = useSWR(plantId ? `/api/farmer/plant/${plantId}/feed` : null, fetcher);
+  } = useSWR<PlantFeedType>(
+    plantId ? `/api/farmer/plant/${plantId}/feed` : null,
+    fetcher
+  );
 
   const toggleComments = (feedId: string) => {
     setShowFeedComments((prev) => ({
@@ -74,11 +77,6 @@ const PlantFeed = () => {
       });
   };
 
-  let plantFeed: PlantFeedType | undefined;
-  if (plantFeedData) {
-    const { data } = plantFeedData;
-    plantFeed = data;
-  }
   return (
     <>
       <Head>
@@ -86,23 +84,23 @@ const PlantFeed = () => {
       </Head>
       <Layout leftChild={<LogoHeader />}>
         <div className='flex w-full flex-col items-center gap-5 py-3'>
-          {!plantFeed ? (
+          {!plantFeedData ? (
             <p>로딩 중 입니다.</p>
           ) : (
             <>
               <div className='flex w-full max-w-[500px] flex-col items-center'>
                 <h3>
-                  {plantFeed.userName} / {plantFeed.plantName}
+                  {plantFeedData.userName} / {plantFeedData.plantName}
                 </h3>
                 <div className='h-[285px] w-full flex-col rounded-lg bg-primary'>
                   <div
                     className={`relative h-[250px] w-full rounded-lg border-[1px] ${
-                      !plantFeed.plantImage && 'border-gray-400 bg-white'
+                      !plantFeedData.plantImage && 'border-gray-400 bg-white'
                     }`}
                   >
-                    {plantFeed.plantImage ? (
+                    {plantFeedData.plantImage ? (
                       <Image
-                        src={plantFeed.plantImage}
+                        src={plantFeedData.plantImage}
                         alt='썸네일'
                         layout='fill'
                         objectFit='cover'
@@ -116,21 +114,23 @@ const PlantFeed = () => {
                   </div>
                 </div>
                 <span className='max-w-[250px] text-center text-sm'>
-                  {plantFeed.farmName} / {plantFeed.farmAddress}
+                  {plantFeedData.farmName} / {plantFeedData.farmAddress}
                 </span>
               </div>
 
               <div className='flex flex-col items-center'>
                 <p>
-                  기온 {plantFeed.temperature}도 / {plantFeed.weather} / 습도{' '}
-                  {plantFeed.humidity}%
+                  기온 {plantFeedData.temperature}도 / {plantFeedData.weather} /
+                  습도 {plantFeedData.humidity}%
                 </p>
               </div>
 
               <div className='flex max-w-[250px] flex-col items-center'>
                 <h3 className='text-center'>
                   피드를 남겨{' '}
-                  <span className='bg-yellow-300'>{plantFeed.userName}</span>
+                  <span className='bg-yellow-300'>
+                    {plantFeedData.userName}
+                  </span>
                   님과 소통해보세요!
                 </h3>
                 <button
@@ -156,13 +156,13 @@ const PlantFeed = () => {
                 </button>
               </div>
 
-              {plantFeed.feeds.length !== 0 && (
+              {plantFeedData.feeds.length !== 0 && (
                 <div className='flex w-full max-w-[500px] flex-col items-center rounded-lg bg-primary'>
                   <h3 className='py-2 text-white'>
-                    {plantFeed.plantName}의 성장 일지
+                    {plantFeedData.plantName}의 성장 일지
                   </h3>
                   <ul className='flex w-full flex-col items-center gap-8 bg-gray-200 py-4'>
-                    {plantFeed.feeds.map((feed) => {
+                    {plantFeedData.feeds.map((feed) => {
                       return (
                         <li
                           key={feed.feedId}

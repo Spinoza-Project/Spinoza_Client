@@ -37,8 +37,7 @@ const SignIn: NextPage = () => {
       });
   };
   if (userData) {
-    const { data } = userData;
-    router.replace(data === 'USER' ? '/home' : '/farmer');
+    router.replace(userData === 'USER' ? '/home' : '/farmer');
     return <div>로그인 성공</div>;
   }
   return (

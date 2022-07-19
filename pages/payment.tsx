@@ -119,7 +119,6 @@ const Payment: NextPage = () => {
         console.error(error);
       });
   };
-  console.log(reservationId);
 
   return (
     <>

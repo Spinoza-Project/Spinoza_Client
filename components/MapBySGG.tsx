@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { Layer } from 'leaflet';
 import { GeoJSON } from 'react-leaflet';
 import { EMPTY_COLOR, ROCOMAND_COLORS } from '../lib/utils';
+import Image from 'next/image';
 
 interface PropsType {
   tourList: TourType[] | null;
@@ -31,20 +32,20 @@ const MapBySGG: React.FC<PropsType> = ({ tourList, produce, geoJsonBySGG }) => {
             {tourList?.map((tour) => {
               return (
                 <li key={tour['_id']} className='flex flex-col items-center'>
-                  {/* <div className='relative h-[60px] w-[60px] rounded-full'></div> */}
-                  {/* <Image
+                  <div className='relative h-[60px] w-[60px] rounded-full'></div>
+                  <Image
                     src={tour.tourImage}
                     alt='tour image'
                     layout='fill'
                     objectFit='cover'
-                  /> */}
-                  <img
+                  />
+                  {/* <img
                     src={tour.tourImage}
                     width={60}
                     height={60}
                     alt='tour image'
                     className='rounded-full'
-                  />
+                  /> */}
                   <span>{tour.tourName}</span>
                 </li>
               );

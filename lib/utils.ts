@@ -13,5 +13,6 @@ export const getProduct = async () => {
 };
 
 export const getSugar = async () => {
-  return await (await fetch('/sugar.json')).json();
+  // return await (await fetch('/sugar.json')).json();
+  return await (await fetch('/clustered_apple.json')).json();
 };

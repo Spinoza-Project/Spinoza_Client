@@ -9,8 +9,7 @@ const LogoHeader = () => {
 
   const goHome = () => {
     if (userData) {
-      const { data } = userData;
-      router.push(data === 'USER' ? '/home' : '/farmer');
+      router.push(userData === 'USER' ? '/home' : '/farmer');
     }
   };
   return (

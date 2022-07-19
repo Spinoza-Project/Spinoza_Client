@@ -1,5 +1,8 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { PropsWithChildren, ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import useSWR from 'swr';
+import fetcher from '../lib/fetcher';
 import Header from './header';
 import Nav from './nav';
 
@@ -8,21 +11,36 @@ interface PropsType {
   middleChild?: ReactNode | JSX.Element;
   rightChild?: ReactNode | JSX.Element;
   hasNav?: boolean;
+  children?: ReactNode;
 }
 
-const Layout = ({
+const Layout: React.FC<PropsType> = ({
   leftChild,
   middleChild,
   rightChild,
   hasNav = true,
   children,
-}: PropsWithChildren<PropsType>) => {
+}) => {
   const router = useRouter();
+  const { data: userData, error } = useSWR('/api/me', fetcher);
 
-  // if (!data) {
-  //   router.replace('/login');
-  //   return <p>로그인 페이지로 이동합니다.</p>;
-  // }
+  // useEffect(() => {
+  //   console.log(auth);
+  //   if (!auth) {
+  //     router.push('/signin');
+  //   }
+  // }, [auth, router]);
+  if (!userData) {
+    return (
+      <div>
+        <p>로그인이 만료되었습니다.</p>
+        <Link href='/signin'>
+          <a>로그인 페이지로 이동</a>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <>
       <Header

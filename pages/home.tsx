@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { getPlants, postReservation } from './api';
+import { MouseEvent, useEffect, useState } from 'react';
+import { getPlants } from './api';
 import Image from 'next/image';
 import { PlantType } from '../types/PlantType.interface';
 import Layout from '../components/layout';
@@ -13,41 +13,34 @@ import fetcher from '../lib/fetcher';
 import useSWR from 'swr';
 
 const MainPage: NextPage = () => {
-  const { data: userData } = useSWR('/api/me', fetcher);
+  const { data: plantsData } = useSWR<{ plants: PlantType[] }>(
+    '/api/user/plant',
+    fetcher
+  );
   const [plants, setPlants] = useState<PlantType[]>([]);
   const [showPlantingType, setShowPlantingType] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const {
-          data: { plants },
-        } = await getPlants();
-        setPlants(plants);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, []);
+    if (plantsData) {
+      setPlants(plantsData.plants);
+    }
+  }, [plantsData]);
 
+  console.log(plantsData);
   const onCloseModal = () => {
     setShowPlantingType(false);
   };
   const togglePlantingTypeModal = () => {
     setShowPlantingType((prev) => !prev);
   };
-  const onClickRecomand = (e) => {
+  const onClickRecomand = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     router.push('/recomand');
   };
 
-  // if (!userData) {
-  //   router.replace('/signin');
-  //   return null;
-  // }
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
@@ -73,10 +66,14 @@ const MainPage: NextPage = () => {
             <ul className='flex items-center'>
               {plants.map((plant) => {
                 return (
-                  <MyPlantItem key={plant.plantId} className='items-center'>
+                  <MyPlantItem key={plant.plantId}>
                     <Link href={`/plant/${plant.plantId}`}>
                       <a className='flex h-[285px] min-w-[181px] flex-col items-center justify-between rounded-lg bg-primary'>
                         <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
+                          <div className='absolute bottom-0 z-[1] h-1/3 w-full bg-gradient-to-t from-black text-center text-sm text-white'>
+                            <h1>{plant.farmName}</h1>
+                            <p className='mt-3'>{plant.farmAddress}</p>
+                          </div>
                           <Image
                             src={plant.image}
                             alt={'my plant'}
@@ -89,6 +86,13 @@ const MainPage: NextPage = () => {
                       </a>
                     </Link>
                     <p className='p-1'>{plant.weather}</p>
+                    {plant.notifications !== 0 && (
+                      <span className='absolute right-7 top-7 flex h-4 w-4'>
+                        <span className='relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs text-white'>
+                          {plant.notifications}
+                        </span>
+                      </span>
+                    )}
                   </MyPlantItem>
                 );
               })}
@@ -179,6 +183,7 @@ const MyPlantList = styled.ul`
 `;
 
 const MyPlantItem = styled.li`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -32,10 +32,6 @@ const FarmerHome = () => {
       });
   }, []);
 
-  // if (!userData) {
-  //   router.replace('/signin');
-  //   return null;
-  // }
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
