@@ -137,7 +137,7 @@ const Payment: NextPage = () => {
               </div>
             </label>
             <div className='flex w-full flex-col'>
-              <div className='flex rounded-3xl bg-primary p-3'>
+              <div className='flex w-full items-center gap-2 rounded-3xl bg-primary p-3 text-center'>
                 <div className='rounded-full bg-white px-4'>
                   {'['}
                   <input
@@ -151,7 +151,7 @@ const Payment: NextPage = () => {
                   />
                   {'] kg'}
                 </div>
-                <span className='text-white'>
+                <span className='flex-1 text-xl font-semibold text-white'>
                   {Number(weight) * reservationPrice} 원
                 </span>
               </div>
@@ -184,7 +184,7 @@ const Payment: NextPage = () => {
                 {!isDonated && '❤️'} 과수원에 드리기
               </button>
             </div>
-            <div className='flex w-full rounded-3xl bg-primary p-3'>
+            <div className='flex w-full items-center gap-2 rounded-3xl bg-primary p-3 text-center'>
               <div className='rounded-full bg-white px-4'>
                 {'['}
                 <input
@@ -198,7 +198,7 @@ const Payment: NextPage = () => {
                 />
                 {'] kg'}
               </div>
-              <span className='text-white'>
+              <span className='flex-1 text-lg font-semibold text-white'>
                 {isDonated ? (
                   donatePlace ? (
                     <>
@@ -375,12 +375,11 @@ const Payment: NextPage = () => {
           >
             결제하기
           </button>
-          {/* <a href={config.next_redirect_pc_url}>결제하기</a> */}
         </form>
         <Modal
           show={showDonatePlaceModal}
           onCloseModal={onCloseModal}
-          className='fixed top-0 max-h-max w-[290px] select-none rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
+          className='fixed top-1/2 left-1/2 max-h-max w-[290px] -translate-x-1/2 -translate-y-1/2 select-none rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
         >
           <div className='flex flex-col items-center gap-2'>
             {DONATE_PLACE_LIST.map((place, index) => {
