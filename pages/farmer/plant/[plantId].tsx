@@ -71,6 +71,7 @@ const PlantFeed = () => {
       .then(() => {
         onCloseModal();
         mutateFeedData();
+        setComment('');
       })
       .catch((e) => {
         console.error(e);

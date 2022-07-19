@@ -17,7 +17,7 @@ const Farms: NextPage = () => {
   useEffect(() => {
     if (!query) return;
     const { fruit, address } = query as { fruit: string; address: string };
-    if (!farms || !address) return;
+    if (!fruit || !address) return;
     (async () => {
       try {
         const {
@@ -57,8 +57,10 @@ const Farms: NextPage = () => {
                     })}
                   </FarmImages>
                   <Link href={`/farms/${farm.farmId}`}>
-                    <a className='relative bottom-12 grid min-h-[158px] min-w-[80%] grid-rows-3 justify-items-center rounded-xl bg-gray-200 px-4 pt-16 pb-4'>
-                      <p>농가명 : {farm.farmName}</p>
+                    <a className='relative bottom-12 flex min-h-[158px] min-w-[80%] flex-col gap-2 rounded-xl bg-gray-200 px-4 pt-16 pb-4 text-center'>
+                      <p className='text-lg font-bold'>
+                        농가명 : {farm.farmName}
+                      </p>
                       <p>농가 주소 : {farm.address}</p>
                       <p>{farm.introduction}</p>
                     </a>

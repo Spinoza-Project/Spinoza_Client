@@ -27,7 +27,6 @@ const MainPage: NextPage = () => {
     }
   }, [plantsData]);
 
-  console.log(plantsData);
   const onCloseModal = () => {
     setShowPlantingType(false);
   };

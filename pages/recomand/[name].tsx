@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
 import dynamic from 'next/dynamic';
 import { getGeoJSONDataBySGG, getGeoJSONDataByUMD } from '../../lib/utils';
@@ -68,7 +67,7 @@ const RecomandByPlant: NextPage = () => {
         <title>어떤 농가를 추천받을까?</title>
       </Head>
       <Layout leftChild={<LogoHeader />}>
-        <div className='overflow-hidden'>
+        <div className='h-[60vh] w-full overflow-hidden'>
           <MapWithNoSSR
             tourList={tourList}
             recomandType={recomandType}
@@ -76,7 +75,7 @@ const RecomandByPlant: NextPage = () => {
             geoJsonByUMD={geoJsonByUMD}
           />
         </div>
-        <form className='flex'>
+        <form className='mt-10 flex'>
           <div className='flex flex-1 flex-col items-center'>
             <label
               htmlFor='planti-recomand'

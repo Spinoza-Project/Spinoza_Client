@@ -167,7 +167,7 @@ const Recomand: NextPage = () => {
     <>
       <Layout leftChild={<LogoHeader />}>
         <div className='flex min-h-full w-auto flex-col items-start'>
-          <div className='py-10'>
+          <div className='py-3'>
             <h1 className='py-2 text-xl font-bold'>과일 고르기</h1>
             <p className='text-sm'>
               과일 상세품종은 과수원에서 선택 가능합니다.
@@ -192,7 +192,15 @@ const Recomand: NextPage = () => {
                             objectFit='cover'
                           />
                         </div>
-                        <p className='py-1 text-lg font-bold'>{plant.name}</p>
+                        <p className='flex gap-2 py-1'>
+                          <span className='text-xl font-bold'>
+                            {plant.name}
+                          </span>
+                          <span className='inline-flex flex-col text-xs font-thin'>
+                            <span>수확 적기</span>
+                            <span>{plant.harvest}</span>
+                          </span>
+                        </p>
                         <p className='text-sm'>{plant.description}</p>
                       </a>
                     </Link>
@@ -209,7 +217,7 @@ const Recomand: NextPage = () => {
               <li key={index}>
                 <button
                   onClick={() => setSelectedPlantMenu(menuName)}
-                  className={`text-xl font-extrabold ${
+                  className={`text-lg font-extrabold ${
                     selectedPlantMenu === menuName
                       ? 'text-primary'
                       : 'text-[#c9c9c9]'
@@ -235,17 +243,17 @@ const Recomand: NextPage = () => {
               return (
                 <li
                   key={plant.id}
-                  className='flex items-center gap-2 rounded-lg bg-white'
+                  className='flex items-center justify-center gap-2 rounded-lg bg-white'
                 >
-                  <div className='relative h-[100px] w-[100px]'>
+                  <div className='relative h-[100px] w-[100px] flex-1'>
                     <Image
                       src={plant.plantImageUrl}
                       alt='plant'
                       layout='fill'
-                      objectFit='cover'
+                      objectFit='contain'
                     />
                   </div>
-                  <div className='flex flex-col justify-center'>
+                  <div className='flex flex-1 flex-col justify-center text-center'>
                     <p className='py-1 text-lg font-bold'>{plant.name}</p>
                     <p className='flex flex-col text-sm'>
                       <span>수확 적기</span>
@@ -279,8 +287,9 @@ const PlantItem = styled.li`
   justify-content: center;
   padding: 16px;
   border-radius: 8px;
-  min-height: 220px;
-  min-width: 145px;
+  min-width: 140px;
+  max-height: 220px;
+  max-width: 160px;
   scroll-snap-align: start; /* latest (Chrome 69+) */
   scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
   -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */

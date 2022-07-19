@@ -16,7 +16,7 @@ interface PropsType {
   geoJsonBySGG: any;
   geoJsonByUMD: any;
 }
-const DEFAULT_CENTER = [36.4919, 128.8889] as LatLngExpression;
+const DEFAULT_CENTER = [36.25, 128.7] as LatLngExpression;
 
 const LeafletMap: React.FC<PropsType> = ({
   tourList,
@@ -54,7 +54,7 @@ const LeafletMap: React.FC<PropsType> = ({
   }, []);
 
   return (
-    <div id='map' className='h-[50vh] w-screen'>
+    <div id='map' className='h-full w-full'>
       <MapContainer
         center={DEFAULT_CENTER}
         scrollWheelZoom={true}
