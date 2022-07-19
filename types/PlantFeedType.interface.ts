@@ -14,7 +14,7 @@ interface Feed {
 
 export interface PlantFeedType {
   userName?: string;
-  plantImage?: string;
+  plantImage: string;
   plantName: string;
   farmName: string;
   farmAddress: string;

@@ -1,97 +1,186 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Layout from '../../components/layout';
 import LogoHeader from '../../components/LogoHeader';
-import { getPlantFeed } from '../api';
 import { PlantFeedType } from '../../types';
+import Head from 'next/head';
+import fetcher from '../../lib/fetcher';
+import useSWR from 'swr';
 
 const PlantFeed: NextPage = () => {
-  const [myPlantFeed, setMyPlantFeed] = useState<PlantFeedType>();
+  const [showFeedComments, setShowFeedComments] = useState<{
+    [key: string]: boolean;
+  }>({});
   const router = useRouter();
-  const { plantId } = router.query;
+  const {
+    query: { plantId },
+  } = router;
+  const {
+    data: plantFeedData,
+    error,
+    mutate: mutateFeedData,
+  } = useSWR<PlantFeedType>(
+    plantId ? `/api/farmer/plant/${plantId}/feed` : null,
+    fetcher
+  );
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await getPlantFeed(plantId as string);
-        setMyPlantFeed(data);
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [plantId]);
+  const toggleComments = (feedId: string) => {
+    setShowFeedComments((prev) => ({
+      ...prev,
+      [feedId]: feedId in prev ? !prev[feedId] : true,
+    }));
+  };
 
   return (
-    <Layout leftChild={<LogoHeader />}>
-      <div className='flex flex-col gap-5 py-3'>
-        {!myPlantFeed ? (
-          <p>로딩 중 입니다.</p>
-        ) : (
-          <>
-            <div className='flex flex-col items-center'>
-              <div className='flex h-[285px] min-w-[335px] flex-col items-center justify-between rounded-lg bg-primary'>
-                <div className='relative h-full w-full rounded-lg border-[1px] border-gray-400'>
-                  <Image
-                    src={myPlantFeed.feeds[0].images[0]}
-                    alt='lastest feed'
-                    layout='fill'
-                    objectFit='cover'
-                    className='rounded-lg'
-                  />
+    <>
+      <Head>
+        <title>내 농장 피드 관리하기</title>
+      </Head>
+      <Layout leftChild={<LogoHeader />}>
+        <div className='flex w-full flex-col items-center gap-5 py-3'>
+          {!plantFeedData ? (
+            <p>로딩 중 입니다.</p>
+          ) : (
+            <>
+              <div className='flex w-full max-w-[500px] flex-col items-center'>
+                <div className='h-[285px] w-full flex-col rounded-lg bg-primary'>
+                  <div
+                    className={`relative h-[250px] w-full rounded-lg border-[1px] ${
+                      !plantFeedData.plantImage && 'border-gray-400 bg-white'
+                    }`}
+                  >
+                    {plantFeedData.plantImage ? (
+                      <Image
+                        src={plantFeedData.plantImage}
+                        alt='썸네일'
+                        layout='fill'
+                        objectFit='cover'
+                        className='rounded-lg'
+                      />
+                    ) : (
+                      <div className='m-auto flex h-full w-full items-center justify-center text-center'>
+                        작물 사진을 피드로 올려주세요 ☺️
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <p className='p-2 text-white'>{myPlantFeed.plantName}</p>
+                <span className='mt-2 max-w-[250px] text-center text-sm'>
+                  {plantFeedData.farmName} / {plantFeedData.farmAddress}
+                </span>
               </div>
 
-              <span className='text-sm'>
-                {myPlantFeed.farmName} / {myPlantFeed.farmAddress}
-              </span>
-            </div>
+              <div className='flex flex-col items-center'>
+                <p>
+                  기온 {plantFeedData.temperature}도 / {plantFeedData.weather} /
+                  습도 {plantFeedData.humidity}%
+                </p>
+              </div>
 
-            <div className='flex flex-col items-center'>
-              <p>
-                {myPlantFeed.temperature} / {myPlantFeed.weather} /{' '}
-                {myPlantFeed.humidity}
-              </p>
-            </div>
+              <div className='flex max-w-[250px] flex-col items-center'>
+                <h3 className='text-center'>
+                  피드를 남겨{' '}
+                  <span className='bg-yellow-300'>
+                    {plantFeedData.userName}
+                  </span>
+                  님과 소통해보세요!
+                </h3>
+              </div>
 
-            <div className='flex flex-col items-center rounded-lg bg-primary'>
-              <h3 className='py-2 text-white'>
-                {myPlantFeed.plantName}의 성장 일지
-              </h3>
-              <ul className='flex w-full flex-col gap-5 rounded-lg bg-white'>
-                {myPlantFeed.feeds.map((feed) => {
-                  return (
-                    <li key={feed.feedId}>
-                      <p className='flex justify-center py-2'>
-                        {dayjs(feed.createdAt).format('YYYY.MM.DD. hh:mm A')}
-                      </p>
-                      <div className='flex justify-between'>
-                        <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
-                          <Image
-                            src={feed.images[0]}
-                            alt='feed image'
-                            layout='fill'
-                            objectFit='cover'
-                            className='rounded-lg'
-                          />
-                        </div>
-                        <div className='flex flex-1 flex-col items-center gap-3 p-2'>
-                          <h3 className='font-bold'>과수원의 한마디</h3>
-                          <p>{feed.content}</p>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </>
-        )}
-      </div>
-    </Layout>
+              {plantFeedData.feeds.length !== 0 && (
+                <div className='flex w-full max-w-[500px] flex-col items-center rounded-lg bg-primary'>
+                  <h3 className='py-2 text-white'>
+                    {plantFeedData.plantName}의 성장 일지
+                  </h3>
+                  <ul className='flex w-full flex-col items-center gap-8 bg-gray-200 py-4'>
+                    {plantFeedData.feeds.map((feed) => {
+                      return (
+                        <li
+                          key={feed.feedId}
+                          className='rounded-lg bg-white p-2 drop-shadow-md'
+                        >
+                          <p className='flex justify-center py-2'>
+                            {dayjs(feed.createdAt).format(
+                              'YYYY.MM.DD. hh:mm A'
+                            )}
+                          </p>
+                          <div className='flex justify-between gap-2'>
+                            <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
+                              <Image
+                                src={feed.images[0]}
+                                alt='feed image'
+                                layout='fill'
+                                objectFit='cover'
+                                className='rounded-lg'
+                              />
+                            </div>
+                            <div className='flex flex-1 flex-col items-center gap-3'>
+                              <h3 className='font-bold'>과수원의 한마디</h3>
+                              <p>{feed.content}</p>
+                            </div>
+                          </div>
+                          <div className='mt-2'>
+                            <div className='flex justify-between'>
+                              <span className='flex items-center justify-center text-xl font-bold'>
+                                <svg
+                                  xmlns='http://www.w3.org/2000/svg'
+                                  className='h-6 w-6'
+                                  fill='none'
+                                  viewBox='0 0 24 24'
+                                  stroke='currentColor'
+                                  strokeWidth={2}
+                                >
+                                  <path
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                    d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z'
+                                  />
+                                </svg>
+                                댓글
+                              </span>
+                              <button
+                                className='text-gray-400'
+                                onClick={() => toggleComments(feed.feedId)}
+                              >
+                                {showFeedComments[feed.feedId]
+                                  ? '닫기'
+                                  : '펼치기'}
+                              </button>
+                            </div>
+                            {showFeedComments[feed.feedId] && (
+                              <ul>
+                                {feed.comments.map((comment, index) => {
+                                  return (
+                                    <li key={index}>
+                                      <div className='flex items-center gap-2'>
+                                        <Image
+                                          src={comment.profileImage}
+                                          alt='profile'
+                                          width={20}
+                                          height={20}
+                                        />
+                                        <span>{comment.userName}</span>
+                                      </div>
+                                      <p className='pl-6'>{comment.comment}</p>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            )}
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </Layout>
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { MouseEvent, useEffect, useState } from 'react';
-import { getPlants } from './api';
 import Image from 'next/image';
 import { PlantType } from '../types/PlantType.interface';
 import Layout from '../components/layout';

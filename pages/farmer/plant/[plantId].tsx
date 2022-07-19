@@ -1,4 +1,4 @@
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -113,7 +113,7 @@ const PlantFeed = () => {
                     )}
                   </div>
                 </div>
-                <span className='max-w-[250px] text-center text-sm'>
+                <span className='mt-2 max-w-[250px] text-center text-sm'>
                   {plantFeedData.farmName} / {plantFeedData.farmAddress}
                 </span>
               </div>

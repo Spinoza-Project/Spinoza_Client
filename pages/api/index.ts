@@ -5,11 +5,6 @@ export const getPlants = async () => {
   return data;
 };
 
-export const getPlantFeed = async (plantId: string) => {
-  const { data } = await axios.get(`/api/user/plant/${plantId}/feed`);
-  return data;
-};
-
 export const getFarms = async (fruit: string, address: string) => {
   const { data } = await axios.get(
     `/api/user/farm?fruit=${fruit}&address=${address}`
