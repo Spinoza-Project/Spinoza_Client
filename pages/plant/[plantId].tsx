@@ -1,19 +1,24 @@
 import dayjs from 'dayjs';
+import axios from 'axios';
+import useSWR from 'swr';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Layout from '../../components/layout';
 import LogoHeader from '../../components/LogoHeader';
 import { PlantFeedType } from '../../types';
 import Head from 'next/head';
 import fetcher from '../../lib/fetcher';
-import useSWR from 'swr';
+import Modal from '../../components/Modal';
 
 const PlantFeed: NextPage = () => {
   const [showFeedComments, setShowFeedComments] = useState<{
     [key: string]: boolean;
   }>({});
+  const [comment, setComment] = useState('');
+  const [showCommentInputModal, setShowCommentInputModal] = useState(false);
+  const [feedId, setFeedId] = useState('');
   const router = useRouter();
   const {
     query: { plantId },
@@ -34,6 +39,38 @@ const PlantFeed: NextPage = () => {
     }));
   };
 
+  const toggleCommentInputModal = (feedId: string) => {
+    setShowCommentInputModal((prev) => !prev);
+    setFeedId(feedId);
+  };
+
+  const onCloseModal = () => {
+    setShowCommentInputModal(false);
+  };
+
+  const onSubmitComment = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!comment || !comment.trim()) {
+      alert('댓글을 작성해주세요.');
+      return;
+    }
+    if (!feedId || !plantId) {
+      alert('유효하지 않은 요청입니다.');
+      return;
+    }
+
+    axios
+      .post(`/api/user/plant/${plantId}/feed/${feedId}/comment`, { comment })
+      .then(() => {
+        onCloseModal();
+        mutateFeedData();
+        setComment('');
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
   return (
     <>
       <Head>
@@ -167,6 +204,22 @@ const PlantFeed: NextPage = () => {
                                     </li>
                                   );
                                 })}
+                                <button
+                                  onClick={() =>
+                                    toggleCommentInputModal(feed.feedId)
+                                  }
+                                  className='flex items-center justify-center underline'
+                                >
+                                  <svg
+                                    xmlns='http://www.w3.org/2000/svg'
+                                    className='h-5 w-5'
+                                    viewBox='0 0 20 20'
+                                    fill='currentColor'
+                                  >
+                                    <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
+                                  </svg>
+                                  댓글 남기기
+                                </button>
                               </ul>
                             )}
                           </div>
@@ -178,6 +231,36 @@ const PlantFeed: NextPage = () => {
               )}
             </>
           )}
+          <Modal
+            show={showCommentInputModal}
+            onCloseModal={onCloseModal}
+            className='fixed top-[300px] max-h-max w-full max-w-[500px] select-none rounded-xl border border-black bg-white px-6 py-3 text-center shadow-2xl'
+          >
+            <form onSubmit={onSubmitComment}>
+              <label>
+                <span className='block w-full rounded-lg py-1 text-lg font-semibold'>
+                  댓글 작성하기
+                </span>
+                <textarea
+                  placeholder='댓글을 작성해주세요.'
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className='mt-2 w-full resize-none rounded-lg'
+                />
+                <button className='m-auto flex items-center justify-center'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='h-5 w-5'
+                    viewBox='0 0 20 20'
+                    fill='currentColor'
+                  >
+                    <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
+                  </svg>
+                  댓글 등록
+                </button>
+              </label>
+            </form>
+          </Modal>
         </div>
       </Layout>
     </>

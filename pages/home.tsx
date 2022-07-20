@@ -23,7 +23,7 @@ const MainPage: NextPage = () => {
 
   useEffect(() => {
     if (plantsData) {
-      setPlants(plantsData.plants);
+      setPlants(plantsData.plants.slice().reverse());
     }
   }, [plantsData]);
 
