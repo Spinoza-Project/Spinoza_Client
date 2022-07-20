@@ -54,13 +54,12 @@ const MapByUMD: React.FC<PropsType> = ({
 
     return {
       fillColor: sugar.hasOwnProperty(EMD_NM)
-        ? ROCOMAND_COLORS[sugar[EMD_NM] - 1]
+        ? ROCOMAND_COLORS[sugar[EMD_NM][query.name as string] - 1]
         : EMPTY_COLOR,
       fillOpacity: 0.8,
       color: '#000000',
       weigth: 1,
       opacity: 0.1,
-      //   stroke: false,
     };
   };
 

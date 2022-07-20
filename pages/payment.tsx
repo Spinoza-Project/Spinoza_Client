@@ -9,7 +9,7 @@ import Modal from '../components/Modal';
 import { initialConfig } from '../lib/kakaoPayConfig';
 
 import { useAtomValue } from 'jotai/utils';
-import { reservationId_atom, reservationPrice_atom } from '../stores';
+import { reservationPrice_atom } from '../stores';
 import { useRouter } from 'next/router';
 
 type ReceiveType = 'parcel' | 'direct' | 'pickup';
@@ -30,7 +30,6 @@ const Payment: NextPage = () => {
   const [donatePlace, setDonatePlace] = useState('');
   const [showDonatePlaceModal, setShowDonatePlaceModal] = useState(false);
   const reservationPrice = useAtomValue(reservationPrice_atom);
-  const reservationId = useAtomValue(reservationId_atom);
   const router = useRouter();
 
   useEffect(() => {
@@ -100,13 +99,11 @@ const Payment: NextPage = () => {
       params,
     })
       .then((response) => {
-        // 응답에서 필요한 data만 뽑는다.
         const {
           data: { next_redirect_pc_url, next_redirect_mobile_url, tid },
         } = response;
 
         window.localStorage.setItem('tid', tid);
-        // 응답 data로 state 갱신
         setConfig((prev) => ({
           ...prev,
           next_redirect_pc_url,
@@ -147,7 +144,7 @@ const Payment: NextPage = () => {
                     required
                     value={weight}
                     onChange={onChangeWeight}
-                    className='w-10 border-none focus:ring-0'
+                    className='w-12 border-none focus:ring-0'
                   />
                   {'] kg'}
                 </div>
@@ -194,7 +191,7 @@ const Payment: NextPage = () => {
                   required
                   value={donateWeight}
                   onChange={onChangeDonation}
-                  className='w-10 border-none focus:ring-0'
+                  className='w-12 border-none focus:ring-0'
                 />
                 {'] kg'}
               </div>

@@ -91,12 +91,12 @@ const FarmDetail: NextPage = () => {
         </div>
 
         <div className='flex justify-center'>
-          <ul className='flex gap-4'>
+          <ul className='flex gap-4 p-4'>
             {farmDetail?.tours.map((tour) => {
               return (
                 <li key={tour['_id']} className='flex flex-col items-center'>
                   <span className='text-xs'>{tour.distance}km</span>
-                  <div className='relative h-[60px] w-[90px] rounded-xl'>
+                  <div className='relative h-[50px] w-[70px] rounded-xl'>
                     <Image
                       src={tour.tourImage}
                       alt='tour image'

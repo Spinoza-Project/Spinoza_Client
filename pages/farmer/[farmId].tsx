@@ -118,5 +118,10 @@ const ReservationItem = styled.li<{ bgColor: string }>`
   height: 50px;
   background-color: ${({ bgColor }) => bgColor};
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
 `;
 export default MyFarmDetail;

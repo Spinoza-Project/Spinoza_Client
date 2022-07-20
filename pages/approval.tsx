@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../components/layout';
@@ -18,6 +19,7 @@ const Approval = () => {
   };
   const [config, setConfig] = useState(initialConfig);
   const router = useRouter();
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     const {
@@ -51,14 +53,37 @@ const Approval = () => {
       // 결제 승인에 대한 응답 출력
       (async () => {
         try {
-          await postReservation(reservationId);
-          console.log('새로운 작물 심었다!');
-          window.localStorage.removeItem('reservationId');
-          // router.replace('/home');
-        } catch (e) {}
+          const {
+            data: { data },
+          } = await postReservation(reservationId);
+          console.log(data);
+          if (data) {
+            setIsSuccess(true);
+            window.localStorage.removeItem('reservationId');
+          }
+        } catch (e) {
+          setIsSuccess(false);
+          console.log('예약 안되었으므로, 결제 취소해야함.');
+          console.error(e);
+        }
       })();
     });
-  }, [config]);
-  return <Layout leftChild={<LogoHeader />}>approval</Layout>;
+  }, [config, router]);
+  return (
+    <Layout leftChild={<LogoHeader />}>
+      <div className='flex h-full w-full flex-col items-center justify-center'>
+        <h1 className='text-lg font-bold'>
+          {isSuccess
+            ? '결제가 완료되었습니다.'
+            : '결제에 실패했습니다. 처음부터 다시 시도해주세요.'}
+        </h1>
+        <Link href='/home' replace>
+          <a>
+            🏠 <span className='underline'>홈으로 돌아가기</span>
+          </a>
+        </Link>
+      </div>
+    </Layout>
+  );
 };
 export default Approval;

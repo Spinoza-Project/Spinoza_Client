@@ -7,6 +7,7 @@ import { getGeoJSONDataBySGG, getGeoJSONDataByUMD } from '../../lib/utils';
 import LogoHeader from '../../components/LogoHeader';
 import { TourType } from '../../types/TourType.interface';
 import { getTourList } from '../api';
+import { useRouter } from 'next/router';
 
 type RecomandType = 'planti' | 'produce';
 const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
@@ -19,6 +20,7 @@ const RecomandByPlant: NextPage = () => {
   const [geoJsonByUMD, setGoeJsonByUMD] = useState(null);
   const [recomandType, setRecomandType] = useState<RecomandType>('planti');
   const [tourList, setTourList] = useState<TourType[] | null>([]);
+  const { query } = useRouter();
 
   useEffect(() => {
     // 시/군 GeoJSON 불러오기
@@ -67,7 +69,10 @@ const RecomandByPlant: NextPage = () => {
         <title>어떤 농가를 추천받을까?</title>
       </Head>
       <Layout leftChild={<LogoHeader />}>
-        <div className='h-[60vh] w-full overflow-hidden'>
+        <h1 className='mt-4 text-center text-2xl font-bold'>
+          ({query.name}) 추천 지도
+        </h1>
+        <div className='mt-10 h-[60vh] w-full overflow-hidden'>
           <MapWithNoSSR
             tourList={tourList}
             recomandType={recomandType}

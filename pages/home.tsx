@@ -68,7 +68,7 @@ const MainPage: NextPage = () => {
                     <Link href={`/plant/${plant.plantId}`}>
                       <a className='flex h-[285px] min-w-[181px] flex-col items-center justify-between rounded-lg bg-primary'>
                         <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
-                          <div className='absolute bottom-0 z-[1] h-1/3 w-full bg-gradient-to-t from-black text-center text-sm text-white'>
+                          <div className='absolute bottom-0 z-[1] h-1/3 w-full rounded-b-lg bg-gradient-to-t from-black text-center text-sm text-white'>
                             <h1>{plant.farmName}</h1>
                             <p className='mt-3'>{plant.farmAddress}</p>
                           </div>
@@ -106,7 +106,7 @@ const MainPage: NextPage = () => {
         <Modal
           show={showPlantingType}
           onCloseModal={onCloseModal}
-          className='fixed max-h-max w-[290px] select-none rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
+          className='fixed max-h-max w-[290px] -translate-y-1/2 select-none rounded-xl border border-black bg-white px-10 py-3 text-center shadow-2xl'
         >
           <form>
             <div className='flex flex-col items-center'>
