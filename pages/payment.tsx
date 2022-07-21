@@ -20,9 +20,10 @@ const PARCEL_PRICE = 6000;
 const Payment: NextPage = () => {
   const [config, setConfig] = useState(initialConfig);
 
+  const [plantNickname, setPlantNickname] = useState('');
   const [weight, setWeight] = useState('');
   const [donateWeight, setDonateWeight] = useState('');
-
+  const [totalAmount, setTotalAmount] = useState(PARCEL_PRICE);
   const [receive, setReceive] = useState<ReceiveType>('parcel');
   const [payment, setPayment] = useState<PaymentType>('simple');
 
@@ -42,6 +43,22 @@ const Payment: NextPage = () => {
     }));
   }, []);
 
+  useEffect(() => {
+    const total_amount = isDonated
+      ? donatePlace
+        ? 40 * reservationPrice + PARCEL_PRICE
+        : Number(weight) * reservationPrice + PARCEL_PRICE
+      : Number(weight) * reservationPrice + PARCEL_PRICE;
+    setTotalAmount(total_amount);
+    setConfig((prev) => ({
+      ...prev,
+      params: {
+        ...prev.params,
+        total_amount,
+      },
+    }));
+  }, [weight, donatePlace, isDonated, reservationPrice]);
+
   const toggleDonateModal = () => {
     setShowDonatePlaceModal((prev) => !prev);
     setIsDonated(true);
@@ -49,6 +66,7 @@ const Payment: NextPage = () => {
   const onCloseModal = () => {
     setShowDonatePlaceModal(false);
   };
+
   const onChangeDonatePlace = (e: ChangeEvent<HTMLInputElement>) => {
     setDonatePlace(e.target.value);
   };
@@ -62,13 +80,7 @@ const Payment: NextPage = () => {
       alert('0kg 이상 40kg 이하만 적어주세요.');
       return;
     }
-    setConfig((prev) => ({
-      ...prev,
-      params: {
-        ...prev.params,
-        total_amount: Number(validatedWeight) * reservationPrice + 6000,
-      },
-    }));
+
     setWeight(validatedWeight);
     setDonateWeight(String(40 - +validatedWeight));
   };
@@ -89,6 +101,12 @@ const Payment: NextPage = () => {
     e.preventDefault();
 
     const { params } = config;
+
+    if (!plantNickname || !plantNickname.trim()) {
+      alert('작물의 이름을 설정해주세요!');
+      return;
+    }
+
     axios({
       url: '/v1/payment/ready',
       method: 'POST',
@@ -104,6 +122,7 @@ const Payment: NextPage = () => {
         } = response;
 
         window.localStorage.setItem('tid', tid);
+        window.localStorage.setItem('plantNickname', plantNickname);
         setConfig((prev) => ({
           ...prev,
           next_redirect_pc_url,
@@ -124,12 +143,32 @@ const Payment: NextPage = () => {
       </Head>
       <Layout leftChild={<LogoHeader />}>
         <form className='flex w-full flex-col gap-3 py-4'>
+          <div className='flex w-full flex-col items-center'>
+            <label
+              htmlFor='plant-nickname'
+              className='flex w-full items-center justify-center rounded-2xl bg-primary py-2 font-main text-white'
+            >
+              내 {'['}
+              <input
+                type='text'
+                name='plant-nickname'
+                id='plant-nickname'
+                required
+                value={plantNickname}
+                onChange={(e) => setPlantNickname(e.target.value)}
+                className='w-24 border-none bg-primary focus:ring-0'
+              />
+              {']'} 심기
+            </label>
+            <span className='text-xs'>자기 작물의 닉네임을 설정해주세요!</span>
+          </div>
+
           <div className='flex flex-col items-center gap-4'>
             <label htmlFor='weight'>
               <h2 className='flex justify-center rounded-2xl p-3 text-lg font-bold shadow-md'>
                 열매 관리
               </h2>
-              <div className='mt-1 text-sm'>
+              <div className='mt-1 text-xs'>
                 수확 후 챙겨갈 열매량을 입력하세요.
               </div>
             </label>
@@ -161,7 +200,7 @@ const Payment: NextPage = () => {
               <h2 className='flex justify-center rounded-2xl p-3 text-lg font-bold shadow-md'>
                 초과 수확 열매 관리
               </h2>
-              <div className='mt-1 text-sm'>
+              <div className='mt-1 text-xs'>
                 초과 수확 및 40kg 이하 설정 열매를 관리합니다.
               </div>
             </label>
@@ -217,11 +256,7 @@ const Payment: NextPage = () => {
 
           <div className='flex flex-col items-center'>
             <div className='flex justify-center rounded-2xl p-3 font-bold shadow-md'>
-              총 금액 :{' '}
-              {isDonated && donatePlace
-                ? 40 * reservationPrice + 6000
-                : Number(weight) * reservationPrice + 6000}{' '}
-              원
+              총 금액 : {totalAmount} 원
             </div>
             <div className='mt-1 text-sm'>
               최소 주문비 및 배송비 6000원 포함
@@ -234,7 +269,7 @@ const Payment: NextPage = () => {
             </h2>
             <label
               htmlFor='name'
-              className='flex w-9/12 items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
+              className='flex w-full items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
             >
               <span>수령자 이름</span>
               <input
@@ -247,7 +282,7 @@ const Payment: NextPage = () => {
             </label>
             <label
               htmlFor='phoneNumber'
-              className='flex w-9/12 items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
+              className='flex w-full items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
             >
               <span>전화번호</span>
               <input
@@ -260,7 +295,7 @@ const Payment: NextPage = () => {
             </label>
             <label
               htmlFor='destination'
-              className='flex w-9/12 items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
+              className='flex w-full items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
             >
               <span>배송지</span>
               <input
@@ -273,7 +308,7 @@ const Payment: NextPage = () => {
             </label>
             <label
               htmlFor='requirement'
-              className='flex w-9/12 items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
+              className='flex w-full items-center justify-between rounded-xl border-[1px] border-black px-3 py-2 drop-shadow-md'
             >
               <span>추가 요청 사항</span>
               <input
@@ -393,8 +428,8 @@ const Payment: NextPage = () => {
               return (
                 <InputRadio
                   key={index}
-                  value={place}
-                  donatePlace={donatePlace}
+                  place={place}
+                  value={donatePlace}
                   onChange={onChangeDonatePlace}
                 />
               );

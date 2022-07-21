@@ -64,7 +64,7 @@ const Reservation: NextPage = () => {
   };
 
   if (!reservationData) {
-    return <div>예약정보를 불러오지 못했습니다.</div>;
+    return <div>loading...</div>;
   }
   const { reservations, fruitTypes } = reservationData;
   return (
@@ -76,36 +76,40 @@ const Reservation: NextPage = () => {
             사진보기
           </span>
         </p>
-        <ul className='grid min-h-[472px] min-w-[360px] grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] rounded-3xl bg-[#6D3300] p-3'>
-          {reservations.map((reservation) => {
-            const id = reservation['_id'];
-            return (
-              <li
-                key={id}
-                onClick={() =>
-                  onSelectSeat(id, reservation.price, reservation.reserved)
-                }
-                className={`relative m-1 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gray-200 ${
-                  reservationId === id ? 'border-4 border-red-500' : ''
-                }`}
-              >
-                {reservation.reserved && (
-                  <div className='absolute z-[1] h-full w-full rounded-full bg-black opacity-50'></div>
-                )}
-                <div className='relative h-4 w-4'>
-                  <Image
-                    src={reservation.fruitType.image}
-                    alt='fruitType'
-                    layout='fill'
-                    objectFit='cover'
-                    className='rounded-xl'
-                  />
-                </div>
-                <span>{reservation.fruitType.name}</span>
-              </li>
-            );
-          })}
-        </ul>
+        {reservations.length > 0 ? (
+          <ul className='grid min-h-[472px] min-w-[360px] grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] rounded-3xl bg-[#6D3300] p-3'>
+            {reservations.map((reservation) => {
+              const id = reservation['_id'];
+              return (
+                <li
+                  key={id}
+                  onClick={() =>
+                    onSelectSeat(id, reservation.price, reservation.reserved)
+                  }
+                  className={`relative m-1 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gray-200 ${
+                    reservationId === id ? 'border-4 border-red-500' : ''
+                  }`}
+                >
+                  {reservation.reserved && (
+                    <div className='absolute z-[1] h-full w-full rounded-full bg-black opacity-50'></div>
+                  )}
+                  <div className='relative h-4 w-4'>
+                    <Image
+                      src={reservation.fruitType.image}
+                      alt='fruitType'
+                      layout='fill'
+                      objectFit='cover'
+                      className='rounded-xl'
+                    />
+                  </div>
+                  <span>{reservation.fruitType.name}</span>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p>예약 정보를 불러올 수 없습니다. 농가에 직접 문의해주세요.</p>
+        )}
 
         <ul className='relative grid w-full grid-cols-3 justify-items-center rounded-xl bg-gray-200 p-1'>
           {fruitTypes.map((fruitType) => {

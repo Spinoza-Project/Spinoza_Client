@@ -209,68 +209,70 @@ const Recomand: NextPage = () => {
               })}
           </PlantList>
         </div>
-      </Layout>
-      <div className='fixed inset-x-0 bottom-0 rounded-t-lg bg-gray-300 p-2'>
-        <ul className='flex justify-between px-4 py-3'>
-          {plantMenu.map((menuName, index) => {
-            return (
-              <li key={index}>
-                <button
-                  onClick={() => setSelectedPlantMenu(menuName)}
-                  className={`font-main ${
-                    selectedPlantMenu === menuName
-                      ? 'text-primary'
-                      : 'text-[#c9c9c9]'
-                  }
-                  `}
-                >
-                  {selectedPlantMenu === menuName && <span>▶︎</span>} {menuName}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-        <ul className='scroll-hiden grid h-[250px] grid-cols-2 gap-4 overflow-y-scroll'>
-          {plantList
-            .filter((plant) => {
-              if (selectedPlantMenu === ALL_PLANTS) {
-                return true;
-              } else {
-                return selectedPlantMenu === plant.menu;
-              }
-            })
-            .map((plant) => {
+        <div className='absolute inset-x-0 bottom-0 rounded-t-lg bg-gray-300 p-2'>
+          <ul className='flex justify-between px-4 py-3'>
+            {plantMenu.map((menuName, index) => {
               return (
-                <li
-                  key={plant.id}
-                  className='flex items-center justify-center gap-2 rounded-lg bg-white px-2'
-                >
-                  <div className='relative h-[100px] w-[100px] flex-1'>
-                    <Image
-                      src={plant.plantImageUrl}
-                      alt='plant'
-                      layout='fill'
-                      objectFit='contain'
-                    />
-                  </div>
-                  <div className='flex flex-1 flex-col justify-center text-center'>
-                    <p className='py-1 font-main text-lg'>{plant.name}</p>
-                    <p className='flex flex-col text-xs'>
-                      <span>수확 적기</span>
-                      <span>{plant.harvest}</span>
-                    </p>
-                  </div>
+                <li key={index}>
+                  <button
+                    onClick={() => setSelectedPlantMenu(menuName)}
+                    className={`font-main ${
+                      selectedPlantMenu === menuName
+                        ? 'text-primary'
+                        : 'text-[#c9c9c9]'
+                    }
+                  `}
+                  >
+                    {selectedPlantMenu === menuName && <span>▶︎</span>}{' '}
+                    {menuName}
+                  </button>
                 </li>
               );
             })}
-        </ul>
-      </div>
+          </ul>
+          <ul className='scroll-hiden grid h-[250px] grid-cols-2 gap-4 overflow-y-scroll'>
+            {plantList
+              .filter((plant) => {
+                if (selectedPlantMenu === ALL_PLANTS) {
+                  return true;
+                } else {
+                  return selectedPlantMenu === plant.menu;
+                }
+              })
+              .map((plant) => {
+                return (
+                  <li
+                    key={plant.id}
+                    className='flex items-center justify-center gap-2 rounded-lg bg-white px-2'
+                  >
+                    <div className='relative h-[100px] w-[100px] flex-1'>
+                      <Image
+                        src={plant.plantImageUrl}
+                        alt='plant'
+                        layout='fill'
+                        objectFit='contain'
+                      />
+                    </div>
+                    <div className='flex flex-1 flex-col justify-center text-center'>
+                      <p className='py-1 font-main text-lg'>{plant.name}</p>
+                      <p className='flex flex-col text-xs'>
+                        <span>수확 적기</span>
+                        <span>{plant.harvest}</span>
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      </Layout>
     </>
   );
 };
 
 const PlantList = styled.ul`
   display: flex;
+  margin-top: 24px;
   gap: 16px;
   align-items: stretch;
   width: 100%;

@@ -58,6 +58,7 @@ const MyFarmDetail = () => {
           ) : (
             <ul className='grid w-[340px] grid-cols-6 grid-rows-[repeat(8,minmax(0,1fr))] justify-items-center gap-2'>
               {reservations.map((reservation) => {
+                console.log(reservation.hasNotification);
                 return (
                   <ReservationItem
                     key={reservation['_id']}
@@ -114,6 +115,7 @@ const MyFarmDetail = () => {
 };
 
 const ReservationItem = styled.li<{ bgColor: string }>`
+  position: relative;
   width: 50px;
   height: 50px;
   background-color: ${({ bgColor }) => bgColor};

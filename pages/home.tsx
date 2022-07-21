@@ -41,16 +41,13 @@ const MainPage: NextPage = () => {
 
   return (
     <Layout leftChild={<LogoHeader />}>
-      <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
-        <div className='relative w-[400px]'>
+      <div className='flex h-full w-auto flex-col items-center justify-center gap-4 py-4'>
+        <div className='relative h-[250px] w-[350px]'>
           <Image
-            src='/images/weather.png'
+            src='/images/seoul.png'
             alt='weather'
-            width={400}
-            height={250}
-            // layout='fill'
-            // objectFit='cover'
-            // className='rounded-lg'
+            layout='fill'
+            objectFit='cover'
           />
         </div>
         <MyPlantList>
@@ -68,12 +65,26 @@ const MainPage: NextPage = () => {
                     <Link href={`/plant/${plant.plantId}`}>
                       <a className='flex h-[285px] min-w-[181px] flex-col items-center justify-between rounded-lg bg-primary'>
                         <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
-                          <div className='absolute bottom-0 z-[1] h-1/3 w-full rounded-b-lg bg-gradient-to-t from-black text-center text-sm text-white'>
+                          <div className='absolute bottom-0 z-[2] h-1/3 w-full rounded-b-lg bg-gradient-to-t from-neutral-800 text-center text-sm text-white'>
                             <h1>{plant.farmName}</h1>
                             <p className='mt-3'>{plant.farmAddress}</p>
                           </div>
                           {plant.image === 'default' ? (
-                            <p>사진 없음</p>
+                            <>
+                              {/* <div className='absolute z-[1] h-full w-full rounded-lg bg-gray-200 p-4 text-center text-sm'>
+                                <h1>아직 피드가 올라오지 않았습니다.</h1>
+                              </div> */}
+                              <div className='absolute z-[1] h-1/3 w-full rounded-lg rounded-t-lg bg-gradient-to-b from-neutral-800 p-4 text-center text-sm text-white'>
+                                <h1>아직 피드가 올라오지 않았습니다.</h1>
+                              </div>
+                              <Image
+                                src={'/images/default_tree.jpg'}
+                                alt={'default'}
+                                layout='fill'
+                                objectFit='cover'
+                                className='rounded-lg blur-sm'
+                              />
+                            </>
                           ) : (
                             <Image
                               src={plant.image}

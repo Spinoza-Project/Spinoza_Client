@@ -92,7 +92,7 @@ const PlantFeed: NextPage = () => {
                   >
                     {plantFeedData.plantImage === 'default' ? (
                       <div className='m-auto flex h-full w-full items-center justify-center text-center'>
-                        작물 사진을 피드로 올려주세요 ☺️
+                        곧 업데이트 예정입니다 ☺️
                       </div>
                     ) : (
                       <Image

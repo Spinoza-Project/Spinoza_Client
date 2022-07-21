@@ -52,14 +52,15 @@ const Approval = () => {
     }).then((response) => {
       // 결제 승인에 대한 응답 출력
       (async () => {
+        const plantNickname = localStorage.getItem('plantNickname') ?? 'user';
         try {
           const {
             data: { data },
-          } = await postReservation(reservationId, '로제이');
-          console.log(data);
+          } = await postReservation(reservationId, plantNickname);
           if (data) {
             setIsSuccess(true);
             window.localStorage.removeItem('reservationId');
+            window.localStorage.removeItem('plantNickname');
           }
         } catch (e) {
           setIsSuccess(false);

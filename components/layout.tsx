@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import Header from './header';
@@ -41,8 +40,8 @@ const Layout: React.FC<PropsType> = ({
         middleChild={middleChild}
         rightChild={rightChild}
       />
-      <main className='bg-gray-100 pt-16'>
-        <div className='mx-auto my-0 bg-white px-4 md:w-3/4 lg:w-[768px]'>
+      <main className='relative max-h-max min-h-screen bg-gray-100'>
+        <div className='relative mx-auto my-0 min-h-screen bg-white px-4 pt-16 md:w-3/4 lg:w-[768px]'>
           {children}
         </div>
       </main>

@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
@@ -14,7 +13,7 @@ const Home: NextPage = () => {
     return <div>로그인 성공</div>;
   }
   return (
-    <div className={styles.container}>
+    <div>
       <Link href='/signin'>
         <a>Sign In</a>
       </Link>

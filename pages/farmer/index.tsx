@@ -26,16 +26,13 @@ const FarmerHome = () => {
   }, [farmListData]);
   return (
     <Layout leftChild={<LogoHeader />}>
-      <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
-        <div className='relative w-[400px]'>
+      <div className='flex h-full w-auto flex-col items-center justify-center gap-4 py-4'>
+        <div className='relative h-[250px] w-[350px]'>
           <Image
-            src='/images/weather.png'
+            src='/images/yeongju.png'
             alt='weather'
-            width={400}
-            height={250}
-            // layout='fill'
-            // objectFit='cover'
-            // className='rounded-lg'
+            layout='fill'
+            objectFit='cover'
           />
         </div>
         <MyFarmList className=''>
@@ -47,13 +44,13 @@ const FarmerHome = () => {
             </>
           ) : (
             <ul className='flex items-center'>
-              {farmList.map((farm) => {
+              {farmList.map((farm, index) => {
                 return (
-                  <MyFarmItem key={farm.farmId} className='items-center'>
+                  <MyFarmItem key={farm.farmId}>
                     <Link href={`/farmer/${farm.farmId}`}>
                       <a className='flex h-[285px] min-w-[181px] flex-col items-center justify-between rounded-lg bg-primary'>
                         <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>
-                          <div className='absolute bottom-0 z-[1] h-1/3 w-full rounded-b-lg bg-gradient-to-t from-black text-center text-sm text-white'>
+                          <div className='absolute bottom-0 z-[1] h-1/3 w-full rounded-b-lg bg-gradient-to-t from-neutral-800 text-center text-sm text-white'>
                             <p className='mt-3'>{farm.farmAddress}</p>
                           </div>
                           <Image
@@ -68,10 +65,11 @@ const FarmerHome = () => {
                       </a>
                     </Link>
                     <p className='p-1'>{farm.weather}</p>
-                    {farm.notifications !== 0 && (
-                      <span className='absolute right-7 top-7 flex h-4 w-4'>
-                        <span className='relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs text-white'>
-                          {farm.notifications}
+                    {/* {farm.notifications !== 0 && ( */}
+                    {index === 2 && (
+                      <span className='absolute right-7 top-7 flex'>
+                        <span className='min-w-4 relative inline-flex h-4 max-w-max items-center justify-center rounded-full bg-red-600 px-1 text-xs text-white'>
+                          {1}
                         </span>
                       </span>
                     )}
