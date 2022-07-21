@@ -69,7 +69,7 @@ const RecomandByPlant: NextPage = () => {
         <title>어떤 농가를 추천받을까?</title>
       </Head>
       <Layout leftChild={<LogoHeader />}>
-        <h1 className='pt-4 text-center text-2xl font-bold'>
+        <h1 className='pt-4 text-center font-main text-xl'>
           {query.name} 추천 지도
         </h1>
         <div className='mt-10 h-[60vh] w-full overflow-hidden'>

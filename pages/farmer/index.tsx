@@ -29,7 +29,7 @@ const FarmerHome = () => {
       <div className='flex h-full w-auto flex-col items-center justify-center gap-4'>
         <div className='relative w-[400px]'>
           <Image
-            src='/weather.png'
+            src='/images/weather.png'
             alt='weather'
             width={400}
             height={250}
