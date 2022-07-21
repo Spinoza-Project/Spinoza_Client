@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import { FormEvent, useRef, useState } from 'react';
 import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
-import { UserType } from '../types';
+import { User } from '../types';
 
-const USER: UserType = 'USER';
-const FARMER: UserType = 'FARMER';
+const USER: User = 'USER';
+const FARMER: User = 'FARMER';
 
 const SignIn: NextPage = () => {
   const { data: userData, error, mutate } = useSWR('/api/me', fetcher);

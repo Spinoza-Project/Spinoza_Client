@@ -11,7 +11,7 @@ const WriteFeed = () => {
     content: '',
   };
   const [form, setForm] = useState(initialForm);
-  const [previewImage, setPreviewImage] = useState('');
+  const [previewImage, setPreviewImage] = useState<string>('');
   const router = useRouter();
 
   const encodeFileToBase64 = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +24,8 @@ const WriteFeed = () => {
       reader.readAsDataURL(fileBlob);
       return new Promise((resolve) => {
         reader.onloadend = () => {
-          setPreviewImage(reader.result);
-          resolve();
+          setPreviewImage(reader.result as string);
+          resolve(reader.result);
         };
       });
     }

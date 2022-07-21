@@ -1,2 +1,2 @@
-export type FeatureType = geojson.Feature<geojson.GeometryObject, any>;
-export type UserType = 'USER' | 'FARMER';
+export type FeatureType = GeoJSON.Feature<GeoJSON.GeometryObject, any>;
+export type User = 'USER' | 'FARMER';

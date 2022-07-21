@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import { Layer } from 'leaflet';
 import { GeoJSON } from 'react-leaflet';
 import ReactDOMServer from 'react-dom/server';
-import { FeatureType } from '../types/common';
-import { TourType } from '../types/TourType.interface';
+import { FeatureType, TourType } from '../types';
 import { EMPTY_COLOR, ROCOMAND_COLORS } from '../lib/utils';
 import TourList from './tourList';
 

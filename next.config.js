@@ -8,9 +8,6 @@ const nextConfig = {
       'sopt-bucket.s3.ap-northeast-2.amazonaws.com',
     ],
   },
-  env: {
-    MAPBOX_API_KEY: process.env.MAPBOX_API_KEY,
-  },
   async rewrites() {
     return [
       {
