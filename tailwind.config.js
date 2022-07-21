@@ -9,6 +9,9 @@ module.exports = {
       colors: {
         primary: '#008e58',
       },
+      fontFamily: {
+        main: ['Noto Sans Tamil', 'Jalnan', 'sans-serif'],
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

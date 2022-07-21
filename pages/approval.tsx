@@ -55,7 +55,7 @@ const Approval = () => {
         try {
           const {
             data: { data },
-          } = await postReservation(reservationId);
+          } = await postReservation(reservationId, '로제이');
           console.log(data);
           if (data) {
             setIsSuccess(true);
@@ -72,7 +72,7 @@ const Approval = () => {
   return (
     <Layout leftChild={<LogoHeader />}>
       <div className='flex h-full w-full flex-col items-center justify-center'>
-        <h1 className='text-lg font-bold'>
+        <h1 className='font-main text-lg'>
           {isSuccess
             ? '결제가 완료되었습니다.'
             : '결제에 실패했습니다. 처음부터 다시 시도해주세요.'}

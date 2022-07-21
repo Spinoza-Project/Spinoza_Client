@@ -17,8 +17,11 @@ export const getFarmDetail = async (farmId: string) => {
   return data;
 };
 
-export const postReservation = async (reservationId: string) => {
-  return await axios.post('/api/user/plant', { reservationId });
+export const postReservation = async (
+  reservationId: string,
+  nickname: string
+) => {
+  return await axios.post('/api/user/plant', { reservationId, nickname });
 };
 
 export const getTourList = async () => {

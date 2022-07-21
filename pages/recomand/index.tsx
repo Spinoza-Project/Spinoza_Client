@@ -168,7 +168,7 @@ const Recomand: NextPage = () => {
       <Layout leftChild={<LogoHeader />}>
         <div className='flex min-h-full w-auto flex-col items-start'>
           <div className='py-3'>
-            <h1 className='py-2 text-xl font-bold'>과일 고르기</h1>
+            <h1 className='py-2 font-main text-xl'>과일 고르기</h1>
             <p className='text-sm'>
               과일 상세품종은 과수원에서 선택 가능합니다.
             </p>
@@ -184,7 +184,7 @@ const Recomand: NextPage = () => {
                   >
                     <Link href={`/recomand/${plant.name}`}>
                       <a className='flex flex-col'>
-                        <div className='relative h-[100px] w-[100px]'>
+                        <div className='relative h-[80px] w-[80px] self-center'>
                           <Image
                             src={plant.plantImageUrl}
                             alt='plant'
@@ -192,8 +192,8 @@ const Recomand: NextPage = () => {
                             objectFit='cover'
                           />
                         </div>
-                        <p className='flex gap-2 py-1'>
-                          <span className='text-xl font-bold'>
+                        <p className='flex gap-2'>
+                          <span className='font-main text-lg'>
                             {plant.name}
                           </span>
                           <span className='inline-flex flex-col text-xs font-thin'>
@@ -201,7 +201,7 @@ const Recomand: NextPage = () => {
                             <span>{plant.harvest}</span>
                           </span>
                         </p>
-                        <p className='text-sm'>{plant.description}</p>
+                        <p className='flex-1 text-sm'>{plant.description}</p>
                       </a>
                     </Link>
                   </PlantItem>
@@ -217,7 +217,7 @@ const Recomand: NextPage = () => {
               <li key={index}>
                 <button
                   onClick={() => setSelectedPlantMenu(menuName)}
-                  className={`text-lg font-extrabold ${
+                  className={`font-main ${
                     selectedPlantMenu === menuName
                       ? 'text-primary'
                       : 'text-[#c9c9c9]'
@@ -243,7 +243,7 @@ const Recomand: NextPage = () => {
               return (
                 <li
                   key={plant.id}
-                  className='flex items-center justify-center gap-2 rounded-lg bg-white'
+                  className='flex items-center justify-center gap-2 rounded-lg bg-white px-2'
                 >
                   <div className='relative h-[100px] w-[100px] flex-1'>
                     <Image
@@ -254,8 +254,8 @@ const Recomand: NextPage = () => {
                     />
                   </div>
                   <div className='flex flex-1 flex-col justify-center text-center'>
-                    <p className='py-1 text-lg font-bold'>{plant.name}</p>
-                    <p className='flex flex-col text-sm'>
+                    <p className='py-1 font-main text-lg'>{plant.name}</p>
+                    <p className='flex flex-col text-xs'>
                       <span>수확 적기</span>
                       <span>{plant.harvest}</span>
                     </p>

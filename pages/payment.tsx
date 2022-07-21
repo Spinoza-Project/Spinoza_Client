@@ -135,7 +135,7 @@ const Payment: NextPage = () => {
             </label>
             <div className='flex w-full flex-col'>
               <div className='flex w-full items-center gap-2 rounded-3xl bg-primary p-3 text-center'>
-                <div className='rounded-full bg-white px-4'>
+                <div className='rounded-full bg-white px-4 font-main'>
                   {'['}
                   <input
                     type='text'
@@ -182,7 +182,7 @@ const Payment: NextPage = () => {
               </button>
             </div>
             <div className='flex w-full items-center gap-2 rounded-3xl bg-primary p-3 text-center'>
-              <div className='rounded-full bg-white px-4'>
+              <div className='rounded-full bg-white px-4 font-main'>
                 {'['}
                 <input
                   type='text'
@@ -217,7 +217,11 @@ const Payment: NextPage = () => {
 
           <div className='flex flex-col items-center'>
             <div className='flex justify-center rounded-2xl p-3 font-bold shadow-md'>
-              총 금액 : {Number(weight) * reservationPrice + 6000} 원
+              총 금액 :{' '}
+              {isDonated && donatePlace
+                ? 40 * reservationPrice + 6000
+                : Number(weight) * reservationPrice + 6000}{' '}
+              원
             </div>
             <div className='mt-1 text-sm'>
               최소 주문비 및 배송비 6000원 포함
@@ -294,6 +298,7 @@ const Payment: NextPage = () => {
                   value='parcel'
                   onChange={onChangeReceive}
                   checked={receive === 'parcel'}
+                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
                 />
               </div>
               <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
@@ -307,6 +312,7 @@ const Payment: NextPage = () => {
                   value='direct'
                   onChange={onChangeReceive}
                   checked={receive === 'direct'}
+                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
                 />
               </div>
               <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
@@ -320,6 +326,7 @@ const Payment: NextPage = () => {
                   value='pickup'
                   onChange={onChangeReceive}
                   checked={receive === 'pickup'}
+                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
                 />
               </div>
             </fieldset>
@@ -335,6 +342,7 @@ const Payment: NextPage = () => {
                   value='simple'
                   onChange={onChangePayment}
                   checked={payment === 'simple'}
+                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
                 />
               </div>
               <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
@@ -348,6 +356,7 @@ const Payment: NextPage = () => {
                   value='card'
                   onChange={onChangePayment}
                   checked={payment === 'card'}
+                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
                 />
               </div>
               <div className='flex flex-1 items-center justify-between rounded-xl bg-gray-200 py-3 px-8 drop-shadow-md'>
@@ -361,6 +370,7 @@ const Payment: NextPage = () => {
                   value='noBankbook'
                   onChange={onChangePayment}
                   checked={payment === 'noBankbook'}
+                  className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
                 />
               </div>
             </fieldset>
@@ -368,7 +378,7 @@ const Payment: NextPage = () => {
           <button
             type='submit'
             onClick={handlePayment}
-            className='flex h-[40px] w-9/12 items-center justify-center self-center rounded-xl bg-primary text-white'
+            className='flex h-[40px] w-9/12 items-center justify-center self-center rounded-xl bg-primary font-main text-white'
           >
             결제하기
           </button>

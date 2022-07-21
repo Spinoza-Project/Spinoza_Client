@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 
+@font-face {
+  font-family: Jalnan;
+  src: url('../public/assets/JalnanOTF.otf') format('opentype'), url('../public/assets/Jalnan.ttf');
+}
+
 * {
   box-sizing: border-box;
-  word-break: keep-all;
 }
 
 html,

@@ -9,7 +9,7 @@ import { TourType } from '../../types/TourType.interface';
 import { getTourList } from '../api';
 import { useRouter } from 'next/router';
 
-type RecomandType = 'planti' | 'produce';
+type RecomandType = 'planti' | 'sugar' | 'produce';
 const MapWithNoSSR = dynamic(() => import('../../components/leafletMap'), {
   loading: () => <p>Map is loading</p>,
   ssr: false,
@@ -69,8 +69,8 @@ const RecomandByPlant: NextPage = () => {
         <title>어떤 농가를 추천받을까?</title>
       </Head>
       <Layout leftChild={<LogoHeader />}>
-        <h1 className='mt-4 text-center text-2xl font-bold'>
-          ({query.name}) 추천 지도
+        <h1 className='pt-4 text-center text-2xl font-bold'>
+          {query.name} 추천 지도
         </h1>
         <div className='mt-10 h-[60vh] w-full overflow-hidden'>
           <MapWithNoSSR
@@ -86,7 +86,7 @@ const RecomandByPlant: NextPage = () => {
               htmlFor='planti-recomand'
               className='flex items-center rounded-full bg-primary px-3 py-1 text-white'
             >
-              당도
+              Planti
               <input
                 type='radio'
                 id='planti-recomand'
@@ -99,6 +99,26 @@ const RecomandByPlant: NextPage = () => {
             </label>
             <span className='mt-1 text-xs font-thin'>
               제일 맛있는 지역 추천
+            </span>
+          </div>
+          <div className='flex flex-1 flex-col items-center'>
+            <label
+              htmlFor='planti-recomand'
+              className='flex items-center rounded-full bg-primary px-3 py-1 text-white'
+            >
+              당도
+              <input
+                type='radio'
+                id='sugar-recomand'
+                name='sugar-recomand'
+                value='sugar'
+                onChange={onChangeRadio}
+                checked={recomandType === 'sugar'}
+                className='form-check-input ml-2 cursor-pointer appearance-none border border-white bg-white bg-contain bg-center bg-no-repeat text-primary transition duration-200 checked:border-2 checked:border-white checked:bg-primary focus:border-primary focus:outline-none focus:ring-primary'
+              />
+            </label>
+            <span className='mt-1 text-xs font-thin'>
+              제일 달달한 지역 추천
             </span>
           </div>
           <div className='flex flex-1 flex-col items-center'>

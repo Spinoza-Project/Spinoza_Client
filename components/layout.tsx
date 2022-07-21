@@ -21,15 +21,8 @@ const Layout: React.FC<PropsType> = ({
   hasNav = true,
   children,
 }) => {
-  const router = useRouter();
   const { data: userData, error } = useSWR('/api/me', fetcher);
 
-  // useEffect(() => {
-  //   console.log(auth);
-  //   if (!auth) {
-  //     router.push('/signin');
-  //   }
-  // }, [auth, router]);
   if (!userData) {
     return (
       <div>
@@ -48,8 +41,8 @@ const Layout: React.FC<PropsType> = ({
         middleChild={middleChild}
         rightChild={rightChild}
       />
-      <main className='bg-gray-100'>
-        <div className='mx-auto my-0 min-h-screen bg-white px-4 md:w-3/4 lg:w-[768px]'>
+      <main className='bg-gray-100 pt-16'>
+        <div className='mx-auto my-0 bg-white px-4 md:w-3/4 lg:w-[768px]'>
           {children}
         </div>
       </main>

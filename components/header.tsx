@@ -11,7 +11,7 @@ const Header: React.FC<PropsType> = ({
   rightChild,
 }) => {
   return (
-    <header className='sticky top-0 left-0 z-[99] flex h-16 w-full items-center justify-between bg-white px-4'>
+    <header className='fixed top-0 left-0 z-[99] flex h-16 w-full items-center justify-between bg-white px-4'>
       <div id='left-child' className='flex flex-1 justify-start'>
         {leftChild || <></>}
       </div>

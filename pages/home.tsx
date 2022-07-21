@@ -72,13 +72,17 @@ const MainPage: NextPage = () => {
                             <h1>{plant.farmName}</h1>
                             <p className='mt-3'>{plant.farmAddress}</p>
                           </div>
-                          <Image
-                            src={plant.image}
-                            alt={'my plant'}
-                            layout='fill'
-                            objectFit='cover'
-                            className='rounded-lg'
-                          />
+                          {plant.image === 'default' ? (
+                            <p>사진 없음</p>
+                          ) : (
+                            <Image
+                              src={plant.image}
+                              alt={'my plant'}
+                              layout='fill'
+                              objectFit='cover'
+                              className='rounded-lg'
+                            />
+                          )}
                         </div>
                         <p className='p-2 text-white'>{plant.name}</p>
                       </a>
@@ -114,7 +118,7 @@ const MainPage: NextPage = () => {
                 htmlFor='produce-recomand'
                 className='flex items-center rounded-full bg-primary px-3 py-1 text-white'
               >
-                묘목 심기
+                묘목 심기 Plan
                 <input
                   type='radio'
                   id='produce-recomand'
@@ -135,7 +139,7 @@ const MainPage: NextPage = () => {
                 htmlFor='produce-recomand33'
                 className='flex items-center rounded-full bg-primary px-3 py-1 text-white'
               >
-                성목 분양
+                성목 분양 Plan
                 <input
                   type='radio'
                   id='produce-recomand33'

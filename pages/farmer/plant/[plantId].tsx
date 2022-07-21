@@ -96,10 +96,15 @@ const PlantFeed = () => {
                 <div className='h-[285px] w-full flex-col rounded-lg bg-primary'>
                   <div
                     className={`relative h-[250px] w-full rounded-lg border-[1px] ${
-                      !plantFeedData.plantImage && 'border-gray-400 bg-white'
+                      plantFeedData.plantImage === 'default' &&
+                      'border-gray-400 bg-white'
                     }`}
                   >
-                    {plantFeedData.plantImage ? (
+                    {plantFeedData.plantImage === 'default' ? (
+                      <div className='m-auto flex h-full w-full items-center justify-center text-center'>
+                        작물 사진을 피드로 올려주세요 ☺️
+                      </div>
+                    ) : (
                       <Image
                         src={plantFeedData.plantImage}
                         alt='썸네일'
@@ -107,10 +112,6 @@ const PlantFeed = () => {
                         objectFit='cover'
                         className='rounded-lg'
                       />
-                    ) : (
-                      <div className='m-auto flex h-full w-full items-center justify-center text-center'>
-                        작물 사진을 피드로 올려주세요 ☺️
-                      </div>
                     )}
                   </div>
                 </div>
@@ -167,12 +168,13 @@ const PlantFeed = () => {
                       return (
                         <li
                           key={feed.feedId}
-                          className='rounded-lg bg-white p-2 drop-shadow-md'
+                          className='w-full rounded-lg  bg-white p-2 drop-shadow-md'
                         >
                           <p className='flex justify-center py-2'>
                             {dayjs(feed.createdAt).format(
-                              'YYYY.MM.DD. hh:mm A'
-                            )}
+                              'YYYY.MM.DD. A hh:mm'
+                            )}{' '}
+                            ({dayjs(feed.createdAt).fromNow()})
                           </p>
                           <div className='flex justify-between gap-2'>
                             <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>

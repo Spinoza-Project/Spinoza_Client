@@ -86,10 +86,15 @@ const PlantFeed: NextPage = () => {
                 <div className='h-[285px] w-full flex-col rounded-lg bg-primary'>
                   <div
                     className={`relative h-[250px] w-full rounded-lg border-[1px] ${
-                      !plantFeedData.plantImage && 'border-gray-400 bg-white'
+                      plantFeedData.plantImage === 'default' &&
+                      'border-gray-400 bg-white'
                     }`}
                   >
-                    {plantFeedData.plantImage ? (
+                    {plantFeedData.plantImage === 'default' ? (
+                      <div className='m-auto flex h-full w-full items-center justify-center text-center'>
+                        작물 사진을 피드로 올려주세요 ☺️
+                      </div>
+                    ) : (
                       <Image
                         src={plantFeedData.plantImage}
                         alt='썸네일'
@@ -97,10 +102,6 @@ const PlantFeed: NextPage = () => {
                         objectFit='cover'
                         className='rounded-lg'
                       />
-                    ) : (
-                      <div className='m-auto flex h-full w-full items-center justify-center text-center'>
-                        작물 사진을 피드로 올려주세요 ☺️
-                      </div>
                     )}
                   </div>
                 </div>
@@ -120,9 +121,9 @@ const PlantFeed: NextPage = () => {
                 <h3 className='text-center'>
                   피드를 남겨{' '}
                   <span className='bg-yellow-300'>
-                    {plantFeedData.userName}
-                  </span>
-                  님과 소통해보세요!
+                    {plantFeedData.farmName}
+                  </span>{' '}
+                  농장주와 소통해보세요!
                 </h3>
               </div>
 
@@ -136,12 +137,13 @@ const PlantFeed: NextPage = () => {
                       return (
                         <li
                           key={feed.feedId}
-                          className='rounded-lg bg-white p-2 drop-shadow-md'
+                          className='w-full rounded-lg bg-white p-2 drop-shadow-md'
                         >
                           <p className='flex justify-center py-2'>
                             {dayjs(feed.createdAt).format(
-                              'YYYY.MM.DD. hh:mm A'
-                            )}
+                              'YYYY.MM.DD. A hh:mm'
+                            )}{' '}
+                            ({dayjs(feed.createdAt).fromNow()})
                           </p>
                           <div className='flex justify-between gap-2'>
                             <div className='relative h-[250px] w-[180px] rounded-lg border-[1px] border-gray-400'>

@@ -8,10 +8,12 @@ export const getGeoJSONDataByUMD = async () => {
   return await (await fetch('/geojson/LSMD_ADM_SECT_UMD_47.json')).json();
 };
 
+export const getPlanti = async () => {
+  return await (await fetch('/analysis/planti.json')).json();
+};
+export const getSugar = async () => {
+  return await (await fetch('/analysis/sugar.json')).json();
+};
 export const getProduct = async () => {
   return await (await fetch('/analysis/product.json')).json();
-};
-
-export const getSugar = async () => {
-  return await (await fetch('/analysis/output_final.json')).json();
 };

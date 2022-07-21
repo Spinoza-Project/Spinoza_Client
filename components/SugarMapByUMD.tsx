@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { Layer } from 'leaflet';
 import { GeoJSON } from 'react-leaflet';
 import { EMPTY_COLOR, ROCOMAND_COLORS } from '../lib/utils';
+import TourList from './tourList';
 
 interface PropsType {
   tourList: TourType[] | null;
@@ -13,7 +14,8 @@ interface PropsType {
   geoJsonByUMD: any;
   geoJsonBySGG: any;
 }
-const MapByUMD: React.FC<PropsType> = ({
+const SugarMapByUMD: React.FC<PropsType> = ({
+  tourList,
   sugar,
   geoJsonByUMD,
   geoJsonBySGG,
@@ -26,8 +28,14 @@ const MapByUMD: React.FC<PropsType> = ({
       properties: { SGG_NM },
     } = feature;
     return (
-      <div>
-        <p>지역 : {SGG_NM}</p>
+      <div className='flex flex-col items-center'>
+        <h1 className='font-main text-lg'>{SGG_NM}</h1>
+        {!tourList && <p>여행지 정보를 불러오지 못했습니다.</p>}
+        {tourList && tourList?.length === 0 ? (
+          <p>여행지 정보가 없습니다.</p>
+        ) : (
+          <TourList tourList={tourList} />
+        )}
         <Link href={`/farms?fruit=${query.name}&address=${SGG_NM}`}>
           <a>농가 구경하기👨‍🌾</a>
         </Link>
@@ -54,7 +62,7 @@ const MapByUMD: React.FC<PropsType> = ({
 
     return {
       fillColor: sugar.hasOwnProperty(EMD_NM)
-        ? ROCOMAND_COLORS[sugar[EMD_NM][query.name as string] - 1]
+        ? ROCOMAND_COLORS[sugar[EMD_NM] - 1]
         : EMPTY_COLOR,
       fillOpacity: 0.8,
       color: '#000000',
@@ -89,4 +97,4 @@ const MapByUMD: React.FC<PropsType> = ({
   );
 };
 
-export default MapByUMD;
+export default SugarMapByUMD;

@@ -57,12 +57,10 @@ const Farms: NextPage = () => {
                     })}
                   </FarmImages>
                   <Link href={`/farms/${farm.farmId}`}>
-                    <a className='relative bottom-12 flex min-h-[158px] min-w-[80%] flex-col gap-2 rounded-xl bg-gray-200 px-4 pt-16 pb-4 text-center'>
-                      <p className='text-lg font-bold'>
-                        농가명 : {farm.farmName}
-                      </p>
-                      <p>농가 주소 : {farm.address}</p>
-                      <p>{farm.introduction}</p>
+                    <a className='relative bottom-12 flex min-h-[158px] min-w-[80%] flex-col gap-4 rounded-xl bg-gray-200 px-4 pt-16 pb-4 text-center'>
+                      <p className='font-main'>농가명 : {farm.farmName}</p>
+                      <p className='font-bold'>농가 주소 : {farm.address}</p>
+                      <EllipsisP>{farm.introduction}</EllipsisP>
                     </a>
                   </Link>
                 </li>
@@ -81,5 +79,13 @@ const FarmImages = styled.ul`
   &::-webkit-scrollbar {
     display: none;
   }
+`;
+const EllipsisP = styled.p`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 export default Farms;

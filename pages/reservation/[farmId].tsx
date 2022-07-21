@@ -28,25 +28,6 @@ const Reservation: NextPage = () => {
     fruitTypes: FruitType[];
   }>(farmId ? `/api/user/farm/${farmId}/reservation` : null, fetcher);
 
-  // useEffect(() => {
-  //   const { farmId } = router.query;
-  //   if (!farmId) return;
-  //   axios
-  //     .get(`/api/user/farm/${farmId}/reservation`)
-  //     .then((res) => {
-  //       const {
-  //         data: {
-  //           data: { reservations, fruitTypes },
-  //         },
-  //       } = res;
-  //       setReservations(reservations);
-  //       setFruitsTypes(fruitTypes);
-  //     })
-  //     .catch((e) => {
-  //       console.error(e);
-  //     });
-  // }, [router]);
-
   const onSelectSeat = (
     reservationId: string,
     price: number,
@@ -199,7 +180,7 @@ const Reservation: NextPage = () => {
 
         <button
           onClick={onClickPayment}
-          className='flex h-[60px] w-[230px] items-center justify-center rounded-xl border-[1px] border-gray-400'
+          className='flex h-[60px] w-[230px] items-center justify-center rounded-xl border-[1px] border-gray-400 font-main'
         >
           선택 완료
         </button>

@@ -1,19 +1,25 @@
+import { FeatureType } from '../types/common';
+import { TourType } from '../types/TourType.interface';
+import ReactDOMServer from 'react-dom/server';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Layer } from 'leaflet';
 import { GeoJSON } from 'react-leaflet';
-import ReactDOMServer from 'react-dom/server';
-import { FeatureType } from '../types/common';
-import { TourType } from '../types/TourType.interface';
 import { EMPTY_COLOR, ROCOMAND_COLORS } from '../lib/utils';
 import TourList from './tourList';
 
 interface PropsType {
   tourList: TourType[] | null;
-  produce: any;
+  plantiData: any;
+  geoJsonByUMD: any;
   geoJsonBySGG: any;
 }
-const MapBySGG: React.FC<PropsType> = ({ tourList, produce, geoJsonBySGG }) => {
+const PlantiMapByUMD: React.FC<PropsType> = ({
+  tourList,
+  plantiData,
+  geoJsonByUMD,
+  geoJsonBySGG,
+}) => {
   const router = useRouter();
   const { query } = router;
 
@@ -44,21 +50,36 @@ const MapBySGG: React.FC<PropsType> = ({ tourList, produce, geoJsonBySGG }) => {
     layer.bindPopup(popupContent);
   };
 
-  const setStyle = (feature?: FeatureType) => {
-    if (!produce || !feature) {
+  const setStyleByUMD = (feature?: FeatureType) => {
+    if (!plantiData || !feature) {
       return {
         weigth: 1,
       };
     }
     const {
-      properties: { SGG_NM },
+      properties: { EMD_NM },
     } = feature;
 
     return {
-      fillColor: produce.hasOwnProperty(SGG_NM)
-        ? ROCOMAND_COLORS[produce[SGG_NM][query.name as string] - 1]
+      fillColor: plantiData.hasOwnProperty(EMD_NM)
+        ? ROCOMAND_COLORS[plantiData[EMD_NM][query.name as string] - 1]
         : EMPTY_COLOR,
       fillOpacity: 0.8,
+      color: '#000000',
+      weigth: 1,
+      opacity: 0.1,
+    };
+  };
+
+  const setStyleBySGG = (feature?: FeatureType) => {
+    if (!feature) {
+      return {
+        weigth: 1,
+      };
+    }
+
+    return {
+      fillOpacity: 0,
       color: '#000000',
       weigth: 1,
       opacity: 0.5,
@@ -66,13 +87,14 @@ const MapBySGG: React.FC<PropsType> = ({ tourList, produce, geoJsonBySGG }) => {
   };
   return (
     <>
+      <GeoJSON data={geoJsonByUMD} style={setStyleByUMD} />
       <GeoJSON
         data={geoJsonBySGG}
         onEachFeature={onEachFeature}
-        style={setStyle}
+        style={setStyleBySGG}
       />
     </>
   );
 };
 
-export default MapBySGG;
+export default PlantiMapByUMD;

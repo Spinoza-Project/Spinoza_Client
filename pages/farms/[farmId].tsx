@@ -47,9 +47,9 @@ const FarmDetail: NextPage = () => {
 
   return (
     <Layout leftChild={<LogoHeader />}>
-      <div className='flex flex-col gap-6 py-4'>
+      <div className='flex flex-col gap-6 pb-4'>
         <div className='relative'>
-          <FarmImages className='scroll-none flex w-full snap-x snap-mandatory gap-3 overflow-x-auto p-4'>
+          <HorizontalScroll className='scroll-none flex w-full snap-x snap-mandatory gap-3 overflow-x-auto p-4'>
             {farmDetail?.images.map((image, index) => {
               return (
                 <li key={index} className='snap-center snap-normal'>
@@ -65,10 +65,10 @@ const FarmDetail: NextPage = () => {
                 </li>
               );
             })}
-          </FarmImages>
-          <ul className='relative bottom-12 grid min-h-[158px] min-w-[80%] grid-cols-2 grid-rows-2 gap-2 rounded-xl bg-gray-200 px-4 pt-12 pb-4 text-center'>
+          </HorizontalScroll>
+          <ul className='relative grid min-h-[158px] min-w-[80%] grid-cols-2 grid-rows-2 gap-2 rounded-xl bg-gray-200 p-4 text-center'>
             <li className='col-span-full '>
-              <h3 className='col-span-4 font-bold'>주소</h3>
+              <h3 className='col-span-4 font-main'>주소</h3>
               <p className='col-span-4'>
                 {farmDetail?.address}{' '}
                 <span className='text-sm text-gray-400 underline'>
@@ -77,11 +77,11 @@ const FarmDetail: NextPage = () => {
               </p>
             </li>
             <li>
-              <h3 className='col-span-2 font-bold'>과수원 주인 연락처</h3>
+              <h3 className='col-span-2 font-main'>과수원 주인 연락처</h3>
               <p className='col-span-2'>{farmDetail?.phoneNumber}</p>
             </li>
             <li>
-              <h3 className='col-span-2 font-bold'>리뷰</h3>
+              <h3 className='col-span-2 font-main'>리뷰</h3>
               <p className='col-span-2'>
                 ⭐️ {`${farmDetail?.grade} / 5`}{' '}
                 <span className='text-sm text-gray-400 underline'>더보기</span>
@@ -90,30 +90,37 @@ const FarmDetail: NextPage = () => {
           </ul>
         </div>
 
-        <div className='flex justify-center'>
-          <ul className='flex gap-4 p-4'>
-            {farmDetail?.tours.map((tour) => {
-              return (
-                <li key={tour['_id']} className='flex flex-col items-center'>
-                  <span className='text-xs'>{tour.distance}km</span>
-                  <div className='relative h-[50px] w-[70px] rounded-xl'>
-                    <Image
-                      src={tour.tourImage}
-                      alt='tour image'
-                      layout='fill'
-                      objectFit='cover'
-                      className='rounded-xl'
-                    />
-                  </div>
-                  <span>{tour.tourName}</span>
-                </li>
-              );
-            })}
-          </ul>
+        <div className='flex flex-col items-center'>
+          <h3 className='mb-2 font-main'>여행지 정보</h3>
+          <HorizontalScroll className='scroll-none flex w-full snap-x snap-mandatory gap-3 overflow-x-auto'>
+            {farmDetail?.tours
+              .slice()
+              .sort((a, b) => a.distance - b.distance)
+              .map((tour) => {
+                return (
+                  <li
+                    key={tour['_id']}
+                    className='flex flex-col items-center gap-1'
+                  >
+                    <span className='text-xs'>{tour.distance}km</span>
+                    <div className='relative h-[130px] w-[130px] rounded-xl drop-shadow-md'>
+                      <Image
+                        src={tour.tourImage}
+                        alt='tour image'
+                        layout='fill'
+                        objectFit='cover'
+                        className='rounded-xl'
+                      />
+                    </div>
+                    <span>{tour.tourName}</span>
+                  </li>
+                );
+              })}
+          </HorizontalScroll>
         </div>
 
         <div className='flex flex-col items-center'>
-          <h3 className='mb-2 font-bold'>과수원 품종 정보</h3>
+          <h3 className='mb-2 font-main'>과수원 품종 정보</h3>
           <ul className='relative grid w-full grid-cols-3 justify-items-center rounded-xl bg-gray-200 p-1'>
             {farmDetail?.fruitTypes.map((fruitType) => {
               return (
@@ -189,8 +196,8 @@ const FarmDetail: NextPage = () => {
         </div>
 
         <div className='flex flex-col items-center'>
-          <h3 className='mb-2 font-bold'>과수원의 특징</h3>
-          <ul className='flex w-full flex-wrap justify-between'>
+          <h3 className='mb-2 font-main'>과수원의 특징</h3>
+          <ul className='flex w-full flex-wrap justify-center gap-4'>
             {farmDetail?.hashTags.map((tag, index) => {
               return (
                 <li key={index} className='rounded-full bg-gray-200 px-4'>
@@ -202,14 +209,14 @@ const FarmDetail: NextPage = () => {
         </div>
 
         <div className='flex flex-col items-center'>
-          <h3 className='mb-2 font-bold'>과수원의 한마디</h3>
-          <p className='w-full rounded-xl bg-gray-200 p-3'>
+          <h3 className='mb-2 font-main'>과수원의 한마디</h3>
+          <p className='w-full rounded-xl bg-gray-200 p-3 indent-4'>
             {farmDetail?.introduction}
           </p>
         </div>
 
         <Link href={`/reservation/${query.farmId}`}>
-          <a className='flex items-center justify-center rounded-xl border-[1px] border-gray-400 px-8 py-2'>
+          <a className='flex items-center justify-center rounded-xl border-[1px] border-gray-400 px-8 py-2 font-main'>
             🌳 나무 자리 고르기
           </a>
         </Link>
@@ -218,7 +225,7 @@ const FarmDetail: NextPage = () => {
   );
 };
 
-const FarmImages = styled.ul`
+const HorizontalScroll = styled.ul`
   -ms-overflow-style: 'none';
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -226,7 +233,4 @@ const FarmImages = styled.ul`
   }
 `;
 
-const FruitType = styled.div<{ fruitTypeColor: string }>`
-  background-color: ${(props) => props.fruitTypeColor};
-`;
 export default FarmDetail;
