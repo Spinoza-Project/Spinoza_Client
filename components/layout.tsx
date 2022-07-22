@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import Header from './header';
 import Nav from './nav';
+import Avatar from 'react-avatar';
 
 interface PropsType {
   leftChild?: ReactNode | JSX.Element;
@@ -32,13 +33,20 @@ const Layout: React.FC<PropsType> = ({
       </div>
     );
   }
+  const Profile = (
+    <Link href={userData === 'USER' ? '/home' : '/farmer'}>
+      <a>
+        <Avatar name={userData} size='35' round={true} />
+      </a>
+    </Link>
+  );
 
   return (
     <>
       <Header
         leftChild={leftChild}
         middleChild={middleChild}
-        rightChild={rightChild}
+        rightChild={Profile}
       />
       <main className='relative max-h-max min-h-screen bg-gray-100'>
         <div className='relative mx-auto my-0 min-h-screen bg-white px-4 pt-16 md:w-3/4 lg:w-[768px]'>
