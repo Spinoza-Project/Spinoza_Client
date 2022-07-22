@@ -108,12 +108,11 @@ const Payment: NextPage = () => {
       alert('작물의 이름을 설정해주세요!');
       return;
     }
-
     axios({
       url: '/v1/payment/ready',
       method: 'POST',
       headers: {
-        Authorization: `KakaoAK ${process.env.KAKAO_ADMIN_KEY}`,
+        Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ADMIN_KEY}`,
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
       params,

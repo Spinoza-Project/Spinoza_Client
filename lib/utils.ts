@@ -9,7 +9,8 @@ export const getGeoJSONDataByUMD = async () => {
 };
 
 export const getPlanti = async () => {
-  return await (await fetch('/analysis/planti.json')).json();
+  // return await (await fetch('/analysis/planti.json')).json();
+  return await (await fetch('/analysis/final1.json')).json();
 };
 export const getSugar = async () => {
   return await (await fetch('/analysis/sugar.json')).json();
