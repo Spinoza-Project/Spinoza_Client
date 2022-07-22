@@ -1,10 +1,8 @@
 import useSWR from 'swr';
-import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
 import LogoHeader from '../../components/LogoHeader';
 import fetcher from '../../lib/fetcher';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FarmItemType } from '../../types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,8 +15,6 @@ const FarmerHome = () => {
   );
   const [farmList, setFarmList] = useState<FarmItemType[]>([]);
 
-  const router = useRouter();
-
   useEffect(() => {
     if (farmListData) {
       setFarmList(farmListData.farms);
@@ -30,7 +26,7 @@ const FarmerHome = () => {
         <div className='relative h-[250px] w-[350px]'>
           <Image
             src='/images/yeongju.png'
-            alt='weather'
+            alt='yeongju'
             layout='fill'
             objectFit='cover'
           />

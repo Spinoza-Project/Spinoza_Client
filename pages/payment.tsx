@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+
 import Layout from '../components/layout';
 import LogoHeader from '../components/LogoHeader';
 import InputRadio from '../components/InputRadio';
@@ -10,7 +13,6 @@ import { initialConfig } from '../lib/kakaoPayConfig';
 
 import { useAtomValue } from 'jotai/utils';
 import { reservationPrice_atom } from '../stores';
-import { useRouter } from 'next/router';
 
 type ReceiveType = 'parcel' | 'direct' | 'pickup';
 type PaymentType = 'simple' | 'card' | 'noBankbook';
@@ -129,7 +131,11 @@ const Payment: NextPage = () => {
           next_redirect_mobile_url,
           tid,
         }));
-        router.push(next_redirect_pc_url);
+        if (isMobile) {
+          router.push(next_redirect_mobile_url);
+        } else {
+          router.push(next_redirect_pc_url);
+        }
       })
       .catch((error) => {
         console.error(error);
