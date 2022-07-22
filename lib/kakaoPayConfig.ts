@@ -1,3 +1,10 @@
+import { env } from 'process';
+
+const BASE_URL =
+  env.NODE_ENV === 'production'
+    ? 'https://spinoza-client.vercel.app'
+    : 'http://localhost:3000';
+
 export interface ConfigType {
   next_redirect_pc_url: string;
   next_redirect_mobile_url: string;
@@ -28,8 +35,8 @@ export const initialConfig: ConfigType = {
     quantity: 1,
     total_amount: 0,
     tax_free_amount: 0,
-    approval_url: 'http://localhost:3000/approval',
-    fail_url: 'http://localhost:3000/home',
-    cancel_url: 'http://localhost:3000/home',
+    approval_url: `${BASE_URL}/approval`,
+    fail_url: `${BASE_URL}/home`,
+    cancel_url: `${BASE_URL}/home`,
   },
 };
