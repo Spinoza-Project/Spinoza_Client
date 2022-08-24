@@ -12,6 +12,3 @@
   <img alt="SWR" src="https://img.shields.io/badge/swr-000000?style=for-the-badge&logo=swr&logoColor=white">
   <img alt="Vercel" src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 </div>
-
-## 아키텍처
-준비중...
